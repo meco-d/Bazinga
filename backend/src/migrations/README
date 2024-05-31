@@ -1,0 +1,52 @@
+# Alembic Migration Management
+
+## Creating an Alembic Migration
+
+To create an Alembic Migration for changes to the database tables use the below command:
+
+```bash
+alembic revision -m "create account table"
+```
+
+## Running an Alembic Migration
+
+To apply an Alembic migration and upgrade your database schema to a specific revision, use the following command:
+
+```bash
+alembic upgrade [revision_ID] or [HEAD]
+```
+
+## Reverting an Alembic Migration
+
+If you need to remove or revert an Alembic migration, follow these steps.
+
+### Step 1: Downgrade the Database
+
+To revert the most recent migration, use:
+
+```bash
+alembic downgrade -1
+```
+
+If you need to revert multiple migrations or downgrade to a specific earlier revision, specify the target revision ID or use a relative number to indicate how many migrations to revert:
+
+```bash
+alembic downgrade [target_revision_ID]
+```
+
+or
+
+```bash
+alembic downgrade -[number_of_steps]
+```
+
+### Step 2: Delete the Migration Script (Development Only)
+
+After downgrading, you can optionally delete the migration script file if it is no longer needed:
+
+```bash
+# Manually navigate to your migrations/versions directory and delete the unwanted script.
+rm [filename_of_the_migration_script]
+```
+
+**Note**: This step should be performed only in a development environment. Do not delete migration scripts that have been applied in other development environments, shared with your team, or deployed to production.
