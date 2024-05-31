@@ -124,7 +124,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 If you have any questions or need further assistance, please contact us at:
 
-- Email: support@radx.com
-- GitHub Issues: [https://github.com/yourusername/evolution/issues](https://github.com/yourusername/evolution/issues)
+- Email: contact@radx.app
+- GitHub Issues: [https://github.com/meco-d/Bazinga/issues](https://github.com/meco-d/Bazinga/issues)
 
 Thank you for contributing to the EVolution project! Together, we can drive towards a greener, cleaner world.
