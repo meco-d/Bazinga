@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-toolbar',
@@ -7,4 +8,18 @@ import { Component } from '@angular/core';
 })
 export class ToolbarComponent {
 
+  userEmail: string = '';
+  userFullName: string = '';
+  @Output() sidenavToggleClick: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor(private router: Router,private activateRoute: ActivatedRoute) {
+  }
+
+  logout() {
+    this.router.navigate(['login/']).finally();
+  }
+
+  toggleSidenav(): void {
+    this.sidenavToggleClick.emit();
+  }
 }
