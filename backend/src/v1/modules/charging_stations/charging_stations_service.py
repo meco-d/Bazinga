@@ -24,13 +24,14 @@ class ChargingStationService:
             connection = DatabaseConnection().get_connection()
             statement = text(
                 """
-            INSERT INTO charging_stations (name, status, country, city, latitude, longitude, created_at, updated_at)
-            VALUES (:n, :s, :co, :ci, :la, :lo, :created_at, :updated_at)
+            INSERT INTO charging_stations (user_id, name, status, country, city, latitude, longitude, created_at, updated_at)
+            VALUES (:uid, :n, :s, :co, :ci, :la, :lo, :created_at, :updated_at)
             """
             )
 
             station = create_model(station)
             statement = statement.bindparams(
+                uid=station.userId,
                 n=station.name,
                 s=station.status,
                 co=station.country,

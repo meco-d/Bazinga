@@ -2,7 +2,7 @@
 FROM nginx:alpine
 
 # Copy the built Angular files to the Nginx HTML directory
-COPY ./deploy/src /usr/share/nginx/html
+COPY ./dist/frontend /usr/share/nginx/html
 
 # Expose port 80 to the outside world
 EXPOSE 80

@@ -21,7 +21,31 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     op.create_table(
+        "users",
+        sa.Column("id", sa.Integer, primary_key=True),
+        sa.Column("username", sa.String(100), nullable=False),
+        sa.Column("email", sa.String(100), nullable=False),
+        sa.Column("password", sa.String(100), nullable=False),
+        sa.Column(
+            "created_at", sa.DateTime, nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at",
+            sa.DateTime,
+            nullable=False,
+            server_default=sa.func.now(),
+            onupdate=sa.func.now(),
+        ),
+    )
+
+    op.create_table(
         "charging_stations",
+         sa.Column(
+            "user_id",
+            sa.Integer,
+            sa.ForeignKey("users.id", ondelete="CASCADE"),
+            unique=False
+        ),
         sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("name", sa.String(100), nullable=False),
         sa.Column("status", sa.String(100), nullable=False),
@@ -53,24 +77,6 @@ def upgrade() -> None:
         sa.Column("status", sa.String(100), nullable=False),
         sa.Column("type", sa.String(100), nullable=False),
         sa.Column("rated_power", sa.String(100), nullable=False),
-        sa.Column(
-            "created_at", sa.DateTime, nullable=False, server_default=sa.func.now()
-        ),
-        sa.Column(
-            "updated_at",
-            sa.DateTime,
-            nullable=False,
-            server_default=sa.func.now(),
-            onupdate=sa.func.now(),
-        ),
-    )
-
-    op.create_table(
-        "users",
-        sa.Column("id", sa.Integer, primary_key=True),
-        sa.Column("username", sa.String(50), nullable=False),
-        sa.Column("email", sa.String(100), nullable=False),
-        sa.Column("password", sa.String(100), nullable=False),
         sa.Column(
             "created_at", sa.DateTime, nullable=False, server_default=sa.func.now()
         ),

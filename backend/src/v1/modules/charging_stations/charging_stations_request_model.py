@@ -9,6 +9,7 @@ class Status(str, Enum):
     underMaintenance = 'Under maintenance'
 
 class CreateChargingStationsRequestModel(BaseModel):
+    userId: int
     name: str
     status: Status
     country: str
