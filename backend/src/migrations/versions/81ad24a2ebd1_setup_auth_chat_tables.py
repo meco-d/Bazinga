@@ -24,9 +24,7 @@ def upgrade() -> None:
         "charging_stations",
         sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("name", sa.String(100), nullable=False),
-        sa.Column("type", sa.String(100), nullable=False),
         sa.Column("status", sa.String(100), nullable=False),
-        sa.Column("rated_power", sa.String(100), nullable=False),
         sa.Column("country", sa.String(100), nullable=True),
         sa.Column("city", sa.String(100), nullable=True),
         sa.Column("latitude", sa.Float(3), nullable=False),
@@ -44,12 +42,12 @@ def upgrade() -> None:
     )
 
     op.create_table(
-        "charger",
+        "chargers",
         sa.Column(
             "charging_station_id",
             sa.Integer,
             sa.ForeignKey("charging_stations.id", ondelete="CASCADE"),
-            unique=True
+            unique=False
         ),
         sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("status", sa.String(100), nullable=False),
@@ -90,15 +88,15 @@ def upgrade() -> None:
         sa.Column(
             "charger_id",
             sa.Integer,
-            sa.ForeignKey("charger.id", ondelete="CASCADE"),
-            unique=True
+            sa.ForeignKey("chargers.id", ondelete="CASCADE"),
+            unique=False
 
         ),
         sa.Column(
             "user_id",
             sa.Integer,
             sa.ForeignKey("users.id", ondelete="CASCADE"),
-            unique=True
+            unique=False
         ),
         sa.Column("id", sa.String(100), primary_key=True),
         sa.Column(
@@ -197,7 +195,7 @@ def downgrade() -> None:
     op.drop_table("permissions")
     op.drop_table("roles")
     op.drop_table("reservations")
-    op.drop_table("charger")
+    op.drop_table("chargers")
     op.drop_table("charging_stations")
     op.drop_table("users")
 

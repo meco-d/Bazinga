@@ -36,6 +36,19 @@
             ],
             "cwd": "${workspaceFolder}/reservation_service",
             "justMyCode": false
+        },
+        {
+            "name": "Python: Run Kafka Producer",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/edge_producer/main.py",
+            "env": {
+                "KAFKA_HOST": "localhost",
+                "KAFKA_PORT": "9092",
+                "CHARGING_SESSION_INTERVAL": "0.05"
+            },
+            "cwd": "${workspaceFolder}/edge_producer/",
+            "console": "integratedTerminal"
         }
     ]
 }
