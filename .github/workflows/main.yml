@@ -10,26 +10,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
+      
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'  # Use the Node.js version required by your project
       - name: find path
         run: pwd
-      - name: find.
-        run: ls -la
       - name: Install dependencies
         run: npm install
-        working-directory: /home/runner/work/Bazinga/frontend/
+        working-directory: ./Bazinga/frontend/
 
       - name: Build Angular project
         run: npm run build --prod
-        working-directory: /home/runner/work/Bazinga/frontend
+        working-directory: ./Bazinga/frontend
 
       - name: Copy built files to deploy directory
         run: |
           mkdir -p ./deploy
-          cp -r /home/runner/work/Bazinga/frontend/* ./deploy/
+          cp -r ./Bazinga/frontend/* ./deploy/
 
       - name: Deploy to remote server
         uses: appleboy/ssh-action@v0.1.8
