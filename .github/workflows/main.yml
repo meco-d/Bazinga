@@ -39,7 +39,7 @@ jobs:
         working-directory: frontend
       
       - name: clean the file
-        run: ssh -p 4422 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} rm -rf /home/ubuntu/tmp/*
+        run: ssh -o StrictHostKeyChecking=no -p 4422 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} rm -rf /home/ubuntu/tmp/*
 
       - name: copy file via ssh key
         uses: appleboy/scp-action@v0.1.7
@@ -52,5 +52,5 @@ jobs:
             target: /home/ubuntu/tmp/
       - name: docker compose up
         run: >
-          ssh -p 4422 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}}
+          ssh -o StrictHostKeyChecking=no -p 4422 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}}
           docker-compose up -d --remove-orphans 
