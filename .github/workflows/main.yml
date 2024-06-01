@@ -18,18 +18,20 @@ jobs:
           node-version: '20'  # Use the Node.js version required by your project
       - name: find path
         run: pwd
+      - name: test
+        run: ls -la
       - name: Install dependencies
         run: npm install
-        working-directory: ./Bazinga/frontend/
+        working-directory: frontend/
 
       - name: Build Angular project
         run: npm run build --prod
-        working-directory: ./Bazinga/frontend
+        working-directory: frontend
 
       - name: Copy built files to deploy directory
         run: |
           mkdir -p ./deploy
-          cp -r ./Bazinga/frontend/* ./deploy/
+          cp -r frontend/* ./deploy/
 
       - name: Deploy to remote server
         uses: appleboy/ssh-action@v0.1.8
