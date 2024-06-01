@@ -1,0 +1,34 @@
+<div class="map-container">
+  <div id="map" class="map"></div>
+  <p-card class="map-card">
+    <ng-template pTemplate="content">
+      <div style="display: flex; flex-direction: column;">
+        <div style="display: flex; flex-direction: row; justify-content: space-between">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input style="width: 260px" type="text" pInputText placeholder="Search" [(ngModel)]="searchValue"/>
+          </span>
+          <p-button icon='pi pi-sliders-h' [rounded]="true" [text]="true" severity="secondary" (click)="toggleSwitches()"></p-button>
+        </div>
+        <div *ngIf="showSwitches">
+          <br>
+          <div style="display: flex; flex-direction: row; gap: 16px; justify-content: space-between;">
+            <label>Fast Charging</label>
+            <p-inputSwitch [(ngModel)]="fastChecked"/>
+          </div>
+          <p-divider type="solid"></p-divider>
+          <div style="display: flex; flex-direction: row; gap: 16px; justify-content: space-between;">
+            <label>Available</label>
+            <p-inputSwitch [(ngModel)]="availableChecked"/>
+          </div>
+          <p-divider type="solid"></p-divider>
+          <div style="display: flex; flex-direction: row; gap: 16px; justify-content: space-between;">
+            <label>Open Now</label>
+            <p-inputSwitch [(ngModel)]="openChecked"/>
+          </div>
+<!--          <p-divider type="solid"></p-divider>-->
+        </div>
+      </div>
+    </ng-template>
+  </p-card>
+</div>

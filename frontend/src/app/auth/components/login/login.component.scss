@@ -1,0 +1,43 @@
+.main-div {
+  display: flex;
+  flex-direction: row; /* Changed from row to column to stack logo and card */
+  justify-content: center;
+  align-items: center;
+  height: 98vh;
+  background-image: url('/assets/images/login-bcg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative; /* Make main-div the reference for absolute positioning */
+}
+
+.logo-container {
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+}
+
+:host ::ng-deep .p-card {
+  width: 550px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(249, 251, 253, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  gap: 32px;
+}
+
+p-card-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-body {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
