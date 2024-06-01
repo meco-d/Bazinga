@@ -7,7 +7,10 @@ from typing import Dict, List
 import os
 from datetime import datetime, timezone
 from src.v1.modules.users.users_request_model import CreateUserRequestModel
-from src.v1.modules.users.users_response_model import GetUserCollectionResponse, GetUserResponse
+from src.v1.modules.users.users_response_model import (
+    GetUserCollectionResponse,
+    GetUserResponse,
+)
 from src.v1.modules.users.users_service import UserService
 
 helper.configure_logging()
@@ -31,8 +34,8 @@ def get_user(user_id: int):
     user_service = UserService()
     item = user_service.get_user(user_id=user_id)
     mapped_item = helper.map_item_response(
-            collection_response_model=GetUserResponse, item=item
-        )
+        collection_response_model=GetUserResponse, item=item
+    )
     return mapped_item
 
 
@@ -40,7 +43,6 @@ def get_user(user_id: int):
 def create_user(user: CreateUserRequestModel):
     user_service = UserService()
     user_service.create_user(user)
-
 
 
 @router.patch("/users")

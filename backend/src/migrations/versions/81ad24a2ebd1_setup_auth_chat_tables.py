@@ -21,11 +21,88 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     op.create_table(
+        "charging_station",
+        sa.Column("id", sa.Integer, primary_key=True),
+        sa.Column("name", sa.String(50), nullable=False),
+        sa.Column("status", sa.String(100), nullable=False),
+        sa.Column("country", sa.String(100), nullable=False),
+        sa.Column("city", sa.String(100), nullable=False),
+        sa.Column("latitude", sa.Float(3), nullable=False),
+        sa.Column("longitude", sa.Float(3), nullable=False),
+        sa.Column(
+            "created_at", sa.DateTime, nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at",
+            sa.DateTime,
+            nullable=False,
+            server_default=sa.func.now(),
+            onupdate=sa.func.now(),
+        ),
+    )
+
+    op.create_table(
+        "charger",
+        sa.Column(
+            "charging_station_id",
+            sa.Integer,
+            sa.ForeignKey("charging_station.id", ondelete="CASCADE"),
+            unique=True
+        ),
+        sa.Column("id", sa.Integer, primary_key=True),
+        sa.Column("status", sa.String(100), nullable=False),
+        sa.Column("type", sa.String(100), nullable=False),
+        sa.Column("rated_power", sa.String(100), nullable=False),
+        sa.Column(
+            "created_at", sa.DateTime, nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at",
+            sa.DateTime,
+            nullable=False,
+            server_default=sa.func.now(),
+            onupdate=sa.func.now(),
+        ),
+    )
+
+    op.create_table(
         "users",
         sa.Column("id", sa.Integer, primary_key=True),
         sa.Column("username", sa.String(50), nullable=False),
         sa.Column("email", sa.String(100), nullable=False),
         sa.Column("password", sa.String(100), nullable=False),
+        sa.Column(
+            "created_at", sa.DateTime, nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at",
+            sa.DateTime,
+            nullable=False,
+            server_default=sa.func.now(),
+            onupdate=sa.func.now(),
+        ),
+    )
+
+    op.create_table(
+        "reservations",
+        sa.Column(
+            "charger_id",
+            sa.Integer,
+            sa.ForeignKey("charger.id", ondelete="CASCADE"),
+            unique=True
+
+        ),
+        sa.Column(
+            "user_id",
+            sa.Integer,
+            sa.ForeignKey("users.id", ondelete="CASCADE"),
+            unique=True
+        ),
+        sa.Column("id", sa.String(100), primary_key=True),
+        sa.Column(
+            "startTime", sa.DateTime, nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column("endTime", sa.DateTime, nullable=False, server_default=sa.func.now()),
         sa.Column(
             "created_at", sa.DateTime, nullable=False, server_default=sa.func.now()
         ),
