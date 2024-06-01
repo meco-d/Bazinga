@@ -1,9 +1,12 @@
-
-
 export class MenuItem {
-  constructor(public order: number = 0, public name: string = '', public path: string = '/', public icon: string = '',
-              public active: boolean = true, public children: MenuItem[] = []) {
-  }
+  constructor(
+    public order: number = 0,
+    public name: string = '',
+    public path: string = '/',
+    public icon: string = '',
+    public active: boolean = true,
+    public children: MenuItem[] = []
+  ) {}
 }
 
 export const MENU = [

@@ -1,53 +1,45 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Sidebar} from "primeng/sidebar";
-import {state, style, trigger} from "@angular/animations";
-import {MENU, MenuItem} from './menu';
-import {Router} from "@angular/router";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { state, style, trigger } from '@angular/animations';
+import { MENU, MenuItem } from './menu';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.scss',
+  styleUrls: ['./navigation.component.scss'],
   animations: [
     trigger('openClose', [
-      state('true', style({transform: 'translateX(0)'})),
-      state('false', style({transform: 'translateX(-100%)'})),
+      state('true', style({ transform: 'translateX(0)' })),
+      state('false', style({ transform: 'translateX(-100%)' })),
     ]),
     trigger('openCloseBig', [
-      state('true', style({width: '270px'})),
-      state('false', style({width: '64px'})),
+      state('true', style({ width: '270px' })),
+      state('false', style({ width: '64px' })),
     ]),
     trigger('openCloseSideContent', [
-      state('true', style({padding: '0 0 0 270px'})),
-      state('false', style({padding: '0 0 0 64px'})),
+      state('true', style({ padding: '0 0 0 270px' })),
+      state('false', style({ padding: '0 0 0 64px' })),
     ]),
   ],
 })
-
 export class NavigationComponent implements OnInit {
-  @ViewChild('sidebarRef') sidebarRef!: Sidebar;
-
+  userEmail: string = '';
+  userFullName: string = '';
   today = new Date();
   nextWeek: Date = new Date();
-  private hasChildren: any;
-
-  errors: any = {};
-
-  email: string = '';
   currentComponent: any;
   hasTitle: boolean = false;
   title: string = '';
   maximize = true;
   readonly menu = MENU;
-  readonly filteredMenu: MenuItem[] = [];
+  filteredMenu: MenuItem[] = [];
 
-  constructor() {
+  @ViewChild('sidenav', { static: true }) sidenav: any;
+
+  constructor(private readonly router: Router) {
     this.nextWeek.setDate(this.today.getDate() + 7);
     this.filteredMenu = this.menu.filter(menuItem => this.menuItemCanLoad(menuItem));
   }
-
-  @ViewChild('drawer', {static: true})
-  drawer: any;
 
   ngOnInit() {
     this.hasTitle = false;
@@ -62,16 +54,15 @@ export class NavigationComponent implements OnInit {
     return false;
   }
 
+  toggleSidenav() {
+    this.sidenav.toggle();
+  }
 
   minimizeMenu() {
     this.maximize = !this.maximize;
   }
 
-
-  closeCallback(e: Event): void {
-    this.sidebarRef.close(e);
+  logout() {
+    this.router.navigate(['login/']).finally();
   }
-
-  sidebarVisible: boolean = false;
-
 }

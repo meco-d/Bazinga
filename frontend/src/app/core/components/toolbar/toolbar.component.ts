@@ -12,7 +12,7 @@ export class ToolbarComponent {
   userFullName: string = '';
   @Output() sidenavToggleClick: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private router: Router,private activateRoute: ActivatedRoute) {
+  constructor(private router: Router) {
   }
 
   logout() {
@@ -22,4 +22,5 @@ export class ToolbarComponent {
   toggleSidenav(): void {
     this.sidenavToggleClick.emit();
   }
+
 }

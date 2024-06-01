@@ -4,19 +4,15 @@
     <mat-sidenav #sidenav mode="side" opened="true">
       <mat-nav-list>
         <ng-container *ngFor="let item of filteredMenu; index as i;">
-          <ng-container [ngTemplateOutlet]="item.children.length > 0 ? childMenu : parentMenu"
-                        [ngTemplateOutletContext]="{item:item}">
-          </ng-container>
+          <ng-container *ngIf="item.children.length > 0; else parentMenu" [ngTemplateOutlet]="childMenu" [ngTemplateOutletContext]="{ item: item }"></ng-container>
+          <ng-template #parentMenu>
+            <mat-list-item [routerLink]="item.path" routerLinkActive="nav-active-link" [routerLinkActiveOptions]="{ exact: true }">
+              <mat-icon>{{item.icon}}</mat-icon>
+              {{item.name}}
+            </mat-list-item>
+          </ng-template>
         </ng-container>
       </mat-nav-list>
-
-      <ng-template #parentMenu let-item="item">
-        <mat-list-item [routerLink]="item.path" routerLinkActive="nav-active-link"
-                       [routerLinkActiveOptions]="{exact: true}">
-          <mat-icon>{{item.icon}}</mat-icon>
-          {{item.name}}
-        </mat-list-item>
-      </ng-template>
 
       <ng-template #childMenu let-item="item">
         <mat-expansion-panel [class.mat-elevation-z0]="true">
@@ -25,17 +21,32 @@
             {{item.name}}
           </mat-expansion-panel-header>
           <mat-nav-list>
-            <mat-list-item class="panel-list" *ngFor="let child of item.children" [routerLink]="child.path"
-                           routerLinkActive="nav-active-link" [routerLinkActiveOptions]="{exact:true}">
+            <mat-list-item class="panel-list" *ngFor="let child of item.children" [routerLink]="child.path" routerLinkActive="nav-active-link" [routerLinkActiveOptions]="{ exact: true }">
               <mat-icon class="panel-icon">{{child.icon}}</mat-icon>
               {{child.name}}
             </mat-list-item>
           </mat-nav-list>
         </mat-expansion-panel>
       </ng-template>
+      <hr/>
+      <div class="menu-all">
+        <p class="toolbar-name">{{userFullName}}</p>
+      </div>
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon class="icon-color">keyboard_arrow_down</mat-icon>
+        </button>
+      </div>
+      <mat-menu #menu="matMenu">
+        <span class="menu-buttons" mat-menu-item>{{userEmail}}</span>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span class="profile-menu">Dil</span>
+        </button>
+      </mat-menu>
     </mat-sidenav>
     <mat-sidenav-content>
-      <router-outlet (activate)="currentComponent = $event"></router-outlet>
+      <router-outlet (activate)="currentComponent = $event"/>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

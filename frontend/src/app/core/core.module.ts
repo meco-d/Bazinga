@@ -19,6 +19,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatCardModule} from "@angular/material/card";
+import {MenubarModule} from "primeng/menubar";
+import {ToolbarModule} from "primeng/toolbar";
 
 
 const MaterialModules = [
@@ -44,7 +46,7 @@ const MaterialModules = [
 
 @NgModule({
   declarations: [...fromComponents.components],
-  imports: [CommonModule, HttpClientModule, RouterModule, MaterialModules],
+  imports: [CommonModule, HttpClientModule, RouterModule, MaterialModules, MenubarModule, ToolbarModule],
   exports: [...fromComponents.components],
   providers: [
     // {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
