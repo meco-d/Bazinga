@@ -71,7 +71,7 @@ async def get_charging_station_collection_status():
     flink_url = os.getenv("FLINK_URL")
     with httpx.AsyncClient() as client:
         # Sending a GET request to the URL
-        response = await client.get(url)
+        response = await client.get(flink_url)
         
         # Check if the request was successful
         if response.status_code == 200:
