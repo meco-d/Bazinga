@@ -1,0 +1,7 @@
+__pycache__/
+**/__pycache__
+venv
+.env
+databaseSetup.md
+problems.md
+firebase-adminsdk.json

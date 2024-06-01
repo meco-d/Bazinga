@@ -6,36 +6,32 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "FastAPI: Backend",
+            "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "module": "uvicorn",
-            "args": [
-                "src.v1.main:app",
-                "--host",
-                "0.0.0.0",
-                "--port",
-                "8080",
-                "--reload",
-            ],
-            "cwd": "${workspaceFolder}/backend",
-            "justMyCode": false
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
         },
         {
-            "name": "FastAPI: Reservation service",
+            "name": "Python: FastAPI",
             "type": "python",
             "request": "launch",
             "module": "uvicorn",
             "args": [
                 "src.v1.main:app",
-                "--host",
-                "0.0.0.0",
-                "--port",
-                "8081",
-                "--reload",
+                "--reload"
             ],
-            "cwd": "${workspaceFolder}/reservation_service",
+            "jinja": true,
             "justMyCode": false
         }
+        // {
+        //     "name": "Python: Current File",
+        //     "type": "python",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/src/prod_api.py",
+        //     "console": "integratedTerminal",
+        //     "justMyCode": true
+        // }
     ]
 }
