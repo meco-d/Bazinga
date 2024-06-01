@@ -19,6 +19,14 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatCardModule} from "@angular/material/card";
+import {LeafletModule} from "@asymmetrik/ngx-leaflet";
+import {CardModule} from "primeng/card";
+import {AutoCompleteModule} from "primeng/autocomplete";
+import {InputTextModule} from "primeng/inputtext";
+import {InputSwitchModule} from "primeng/inputswitch";
+import {DividerModule} from "primeng/divider";
+import {TagModule} from "primeng/tag";
+import {Button, ButtonDirective} from "primeng/button";
 import {MenubarModule} from "primeng/menubar";
 import {ToolbarModule} from "primeng/toolbar";
 
@@ -46,7 +54,22 @@ const MaterialModules = [
 
 @NgModule({
   declarations: [...fromComponents.components],
-  imports: [CommonModule, HttpClientModule, RouterModule, MaterialModules, MenubarModule, ToolbarModule],
+  imports: [
+    CommonModule,
+    LeafletModule,
+    CardModule,
+    AutoCompleteModule,
+    InputTextModule,
+    FormsModule,
+    InputSwitchModule,
+    DividerModule,
+    TagModule,
+    ButtonDirective,
+    Button,
+    HttpClientModule,
+    RouterModule,
+    MaterialModules
+  , MenubarModule, ToolbarModule],
   exports: [...fromComponents.components],
   providers: [
     // {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

@@ -1,0 +1,30 @@
+.map-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.map {
+  height: 100%;
+  width: 100%;
+}
+
+.map-card {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000; // Ensure it stays on top of the map
+  width: 350px; // Adjust the width as needed
+}
+
+:host ::ng-deep .p-divider{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+:host ::ng-deep .p-card-body{
+  padding: 10px;
+}
+:host ::ng-deep .p-card-content{
+  padding: 10px;
+}
