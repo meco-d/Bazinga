@@ -42,4 +42,4 @@ jobs:
           port: ${{ secrets.REMOTE_PORT }}
           script: |
             rm -rf /home/ubuntu/tmp/*
-            scp -r ./deploy/* username@${{ secrets.REMOTE_HOST }}:/home/ubuntu/tmp/ -P 4422
+            scp -r ./deploy/* ${{ secrets.REMOTE_USER}}@${{ secrets.REMOTE_HOST }}:/home/ubuntu/tmp/ -P 4422
