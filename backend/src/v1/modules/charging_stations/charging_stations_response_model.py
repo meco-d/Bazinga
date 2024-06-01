@@ -8,9 +8,7 @@ class GetChargingStationsCollectionResponse:
         self,
         id: int,
         name: str,
-        type: str,
         status: str,
-        rated_power: str,
         country: str,
         city: str,
         latitude: float,
@@ -20,9 +18,7 @@ class GetChargingStationsCollectionResponse:
     ):
         self.id = id
         self.name = name
-        self.type = type
         self.status = status
-        self.rated_power = rated_power
         self.country = country
         self.city = city
         self.latitude = latitude
@@ -38,9 +34,7 @@ class GetChargingStationsResponse:
         self,
         id: int,
         name: str,
-        type: str,
         status: str,
-        rated_power: str,
         country: str,
         city: str,
         latitude: float,
@@ -50,9 +44,7 @@ class GetChargingStationsResponse:
     ):
         self.id = id
         self.name = name
-        self.type = type
         self.status = status
-        self.rated_power = rated_power
         self.country = country
         self.city = city
         self.latitude = latitude

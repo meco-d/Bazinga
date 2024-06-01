@@ -1,6 +1,11 @@
 from datetime import datetime, timezone
 from enum import Enum
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr
+
+
+class Type(str, Enum):
+    onephase='One-Phase'
+    threephase='Three-Phase'
 
 class Status(str, Enum):
     inUse = 'In use'
@@ -8,25 +13,23 @@ class Status(str, Enum):
     broken = 'Broken'
     underMaintenance = 'Under maintenance'
 
-class CreateChargingStationsRequestModel(BaseModel):
-    name: str
+class CreateChargerRequestModel(BaseModel):
+    charging_station_id: int
+    type: Type
     status: Status
-    country: str
-    city: str
-    latitude: float
-    longitude: float
+    rated_power: str
 
 
-class CreateChargingStationsDbModel(CreateChargingStationsRequestModel):
+class CreateChargerDbModel(CreateChargerRequestModel):
     created_at: str
     updated_at: str
 
 
-def create_model(model: CreateChargingStationsRequestModel) -> CreateChargingStationsDbModel:
+def create_model(user: CreateChargerRequestModel) -> CreateChargerDbModel:
     """Get the extraExtension model and return it. Will be used as a default value for one of the request fields"""
-    model = model.model_dump()
-    base_model = CreateChargingStationsDbModel(
-        **model,
+    user = user.model_dump()
+    base_model = CreateChargerDbModel(
+        **user,
         created_at=datetime.now()
         .replace(tzinfo=timezone.utc)
         .strftime("%Y-%m-%dT%H:%M:%S"),
