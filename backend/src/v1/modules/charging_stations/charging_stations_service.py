@@ -24,8 +24,8 @@ class ChargingStationService:
             connection = DatabaseConnection().get_connection()
             statement = text(
                 """
-            INSERT INTO charging_stations (name, status, type, rated_power, country, city, latitude, longitude, created_at, updated_at)
-            VALUES (:n, :s, :t, :r, :co, :ci, :la, :lo, :created_at, :updated_at)
+            INSERT INTO charging_stations (name, status, country, city, latitude, longitude, created_at, updated_at)
+            VALUES (:n, :s, :co, :ci, :la, :lo, :created_at, :updated_at)
             """
             )
 
@@ -33,8 +33,6 @@ class ChargingStationService:
             statement = statement.bindparams(
                 n=station.name,
                 s=station.status,
-                t=station.type,
-                r=station.rated_power,
                 co=station.country,
                 ci=station.city,
                 la=station.latitude,
@@ -60,6 +58,7 @@ class ChargingStationService:
             """
         )
         result_item = connection.execute(statement, {"id": id}).fetchone()
+        connection.close()
 
         return result_item
 
@@ -71,6 +70,8 @@ class ChargingStationService:
         """
         )
         result_list = connection.execute(statement).fetchall()
+        connection.close()
+
 
         return result_list
 
