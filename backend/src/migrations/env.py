@@ -6,10 +6,17 @@ from sqlalchemy import create_engine
 from sqlalchemy.engine.url import make_url
 
 from alembic import context
+import dotenv
+from alembic.config import Config
+import os
+
+dotenv.load_dotenv()
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
+config.set_main_option("sqlalchemy.url", os.getenv('PG_URI'))
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

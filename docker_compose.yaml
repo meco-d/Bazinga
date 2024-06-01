@@ -11,6 +11,8 @@ services:
       dockerfile: Dockerfile
       target: base-image
     working_dir: /code
+    env_file:
+      - ./backend/.env
     ports:
       - '4000:80'
     # command: uvicorn app.main:app --host ${APP_HOST}
