@@ -33,13 +33,12 @@ jobs:
           mkdir -p ./deploy
           cp -r frontend/* ./deploy/
 
-      - name: Deploy to remote server
-        uses: appleboy/ssh-action@v0.1.8
+      - name: copy file via ssh key
+        uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.REMOTE_PORT }}
-          script: |
-            rm -rf /home/ubuntu/tmp/*
-            scp -P 4422 -r ./deploy/* ${{ secrets.REMOTE_USER}}@${{ secrets.REMOTE_HOST }}:/home/ubuntu/tmp/
+            host: ${{ secrets.REMOTE_HOST }}
+            username: ${{ secrets.REMOTE_USER }}
+            port: 4422
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            source: "./deploy/"
+            target: /home/ubuntu/tmp/
