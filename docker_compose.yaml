@@ -12,7 +12,7 @@ services:
       target: base-image
     working_dir: /code
     ports:
-      - '3000:80'
+      - '4000:80'
     # command: uvicorn app.main:app --host ${APP_HOST}
     
   zookeeper:
