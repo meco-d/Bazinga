@@ -56,6 +56,7 @@
   & .sc-sidenav-header {
     min-height: 79px;
     border-bottom: 0.5px solid #D8D8D8;
+
     & .logo {
       padding: 10px 16px;
       display: flex;
@@ -248,7 +249,6 @@
 
 }
 
-
 .icons {
   position: relative;
   background-color: white;
@@ -281,7 +281,6 @@
   width: 270px;
   transition: .3s;
   margin-top: 30px;
-  //color: #9c9c9c;
 }
 
 .disable-click {
@@ -294,7 +293,6 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  //line-height: 20px;
   letter-spacing: 0;
   text-align: left;
   color: #414D55;
@@ -367,18 +365,11 @@ img + span {
 }
 
 mat-drawer:not(.mat-drawer-opened) {
-  //transform: translate3d(0, 0 , 0) !important;
   visibility: visible !important;
   width: 64px !important;
   overflow: hidden !important;
-  //transition-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1);
   transition-property: transform, margin-left, margin-right;
 }
-
-//::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
-//  //display:none;
-//}
-
 
 .header {
   display: flex;
@@ -394,7 +385,6 @@ mat-drawer:not(.mat-drawer-opened) {
     min-width: 25px;
   }
 }
-
 
 .mat-drawer-transition .mat-drawer-content {
   transition-duration: 400ms;
