@@ -20,8 +20,8 @@ producer = KafkaProducer(
 def generate_start_event():
     session = {
         'session_id': random.randint(1000, 9999),
-        'station_id': random.choice(['station_1', 'station_2', 'station_3']),
-        'charger_id': random.choice(['charger_1', 'charger_2', 'charger_3']),
+        'station_id': random.choice([1, 2, 3]),
+        'charger_id': random.choice([ 1, 2, 3]),
         'user_id': random.randint(100, 999),
         'start_time': datetime.utcnow().isoformat(),
         'end_time': None,
