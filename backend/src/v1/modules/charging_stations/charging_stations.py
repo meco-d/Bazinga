@@ -1,7 +1,9 @@
 import logging
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, Response
 from fastapi.responses import HTMLResponse, JSONResponse
-import io  # For BytesIO
+import io
+
+import httpx  # For BytesIO
 from src.v1.modules.charging_stations.charging_stations_request_model import CreateChargingStationsRequestModel
 from src.v1.modules.charging_stations.charging_stations_response_model import GetChargingStationsCollectionResponse, GetChargingStationsResponse
 from src.v1.modules.charging_stations.charging_stations_service import ChargingStationService
@@ -61,3 +63,26 @@ def delete_charging_station(id: str):
     user = charging_station_service.get_charging_station(id)
     if user:
         charging_station_service.delete_charging_station(id)
+
+
+@router.get("/charging-stations/live-status")
+async def get_charging_station_collection_status():
+    #http call te flinku
+    flink_url = os.getenv("FLINK_URL")
+    with httpx.AsyncClient() as client:
+        # Sending a GET request to the URL
+        response = await client.get(url)
+        
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Return the JSON response data
+            return response.json()
+        else:
+            # Handle possible errors
+            response.raise_for_status()
+    pass
+
+@router.get("/charging-stations/{id}/live-status")
+def get_charging_station_status():
+    #http call te flinku
+    pass

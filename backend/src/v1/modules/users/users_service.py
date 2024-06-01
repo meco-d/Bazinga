@@ -38,6 +38,7 @@ class UserService:
             )
             connection.execute(statement)
             connection.commit()
+            connection.close()
         except Exception as exc:
             connection.rollback()
             raise HTTPException(status_code=500, detail=exc)

@@ -6,6 +6,7 @@ from pydantic import BaseModel
 class GetChargingStationsCollectionResponse:
     def __init__(
         self,
+        userId: id,
         id: int,
         name: str,
         status: str,
@@ -16,9 +17,10 @@ class GetChargingStationsCollectionResponse:
         created_at: str,
         updated_at: str,
     ):
+        self.userId = userId
         self.id = id
         self.name = name
-        self.status = status
+        # self.status = status
         self.country = country
         self.city = city
         self.latitude = latitude
@@ -44,7 +46,7 @@ class GetChargingStationsResponse:
     ):
         self.id = id
         self.name = name
-        self.status = status
+        # self.status = status
         self.country = country
         self.city = city
         self.latitude = latitude
