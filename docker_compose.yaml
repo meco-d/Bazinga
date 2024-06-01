@@ -15,6 +15,8 @@ services:
       - ./backend/.env
     ports:
       - '4000:80'
+    networks:
+      - postgres-network
     # command: uvicorn app.main:app --host ${APP_HOST}
     
   zookeeper:
@@ -146,7 +148,7 @@ services:
       - HOST_PROC=/host/proc:ro
       - HOST_SYS=/host/sys:ro
       - HOST_ETC=/host/etc:ro
-  database-psgress:
+  psgress:
     image: 'postgres:latest'
     ports:
       - 5432:5432
@@ -165,7 +167,7 @@ services:
     env_file:
       - .env
     depends_on:
-      - database-psgress
+      - psgress
     networks:
       - postgres-network
 
