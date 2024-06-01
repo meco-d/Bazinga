@@ -1,0 +1,43 @@
+name: Build and Deploy Angular Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  # Use the Node.js version required by your project
+      - name: find path
+        run: pwd
+      - name: find.
+        run: ls -la
+      - name: Install dependencies
+        run: npm install
+        working-directory: frontend
+
+      - name: Build Angular project
+        run: npm run build --prod
+        working-directory: frontend
+
+      - name: Copy built files to deploy directory
+        run: |
+          mkdir -p ./deploy
+          cp -r /home/runner/work/Bazinga/frontend/* ./deploy/
+
+      - name: Deploy to remote server
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: |
+            rm -rf /home/ubuntu/tmp/*
+            scp -r ./deploy/* username@${{ secrets.REMOTE_HOST }}:/home/ubuntu/tmp/ -P ${{secrets.REMOTE_PORT}}
