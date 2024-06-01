@@ -144,6 +144,32 @@ services:
       - HOST_PROC=/host/proc:ro
       - HOST_SYS=/host/sys:ro
       - HOST_ETC=/host/etc:ro
+  database:
+    image: 'postgres:latest'
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    networks:
+      - postgres-network
+    volumes:
+      - ./db-data/:/var/lib/postgresql/data/
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 8090:80
+    env_file:
+      - .env
+    depends_on:
+      - database
+    networks:
+      - postgres-network
+
+networks:
+  postgres-network:
+    driver: bridge
 
 volumes:
   influxdb-data:
