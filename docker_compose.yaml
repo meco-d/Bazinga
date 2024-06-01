@@ -144,7 +144,7 @@ services:
       - HOST_PROC=/host/proc:ro
       - HOST_SYS=/host/sys:ro
       - HOST_ETC=/host/etc:ro
-  database:
+  database-psgress:
     image: 'postgres:latest'
     ports:
       - 5432:5432
@@ -163,7 +163,7 @@ services:
     env_file:
       - .env
     depends_on:
-      - database
+      - database-psgress
     networks:
       - postgres-network
 
