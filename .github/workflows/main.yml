@@ -12,6 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      - name: add missing packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes openssh-client
+      - name: Create SSH connection and check for VM response
+        run: |
+          mkdir ~/.ssh/
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/key-git
+          chmod 700 ~/.ssh/key-git
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -27,11 +37,9 @@ jobs:
       - name: Build Angular project
         run: npm run build --prod
         working-directory: frontend
-
-      - name: Copy built files to deploy directory
-        run: |
-          mkdir -p ./deploy
-          cp -r frontend/* ./deploy/
+      
+      - name: clean the file
+        run: ssh -p 4422 -i ~/.~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} rm -rf //home/ubuntu/tmp/*
 
       - name: copy file via ssh key
         uses: appleboy/scp-action@v0.1.7
@@ -40,5 +48,9 @@ jobs:
             username: ${{ secrets.REMOTE_USER }}
             port: 4422
             key: ${{ secrets.SSH_PRIVATE_KEY }}
-            source: "./deploy/"
+            source: "./"
             target: /home/ubuntu/tmp/
+      - name: docker compose up
+        run: >
+          ssh -p 4422 -i ~/.~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}}
+          docker-compose up -d --remove-orphans
