@@ -56,8 +56,8 @@ try:
 
         print(f'Waiting for {time_to_wait} minutes before sending end event...')
         producer.flush()
-        # time.sleep(time_to_wait * 60)  # Convert minutes to seconds
-        time.sleep(4)
+        time.sleep(time_to_wait * 60)  # Convert minutes to seconds
+        # time.sleep(4)
         
         # Generate the corresponding end event
         end_event = generate_end_event(start_event)
@@ -71,8 +71,8 @@ try:
         
         # Wait for a short interval before producing the next start event
         print('Waiting for a short interval before producing the next start event...')
-        # time.sleep(random.uniform(0.5, 2.0) * 60)  # Convert minutes to seconds
-        time.sleep(4)
+        time.sleep(random.uniform(0.5, 2.0) * 60)  # Convert minutes to seconds
+        # time.sleep(4)
 except KeyboardInterrupt:
     print("Stopping the producer.")
 finally:
