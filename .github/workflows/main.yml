@@ -52,5 +52,4 @@ jobs:
             target: /home/ubuntu/tmp/
       - name: docker compose up
         run: >
-          ssh -o StrictHostKeyChecking=no -p 4422 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}}
-          docker compose -f /home/ubuntu/tmp/docker_compose.yaml up -d --remove-orphans 
+          ssh -o StrictHostKeyChecking=no -p 4422 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} sudo docker compose -f /home/ubuntu/tmp/docker_compose.yaml up -d --remove-orphans 
