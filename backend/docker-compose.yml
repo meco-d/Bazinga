@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  database-service:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+      target: base-image
+    working_dir: /code
+    ports:
+      - '80:80'
+    volumes:
+        - /home/ubuntu/venv
+        - ./docker/ssl:/etc/nginx/ssl
+    # command: uvicorn app.main:app --host ${APP_HOST}
