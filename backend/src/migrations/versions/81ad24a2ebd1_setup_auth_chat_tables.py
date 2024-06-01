@@ -21,12 +21,14 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     op.create_table(
-        "charging_station",
+        "charging_stations",
         sa.Column("id", sa.Integer, primary_key=True),
-        sa.Column("name", sa.String(50), nullable=False),
+        sa.Column("name", sa.String(100), nullable=False),
+        sa.Column("type", sa.String(100), nullable=False),
         sa.Column("status", sa.String(100), nullable=False),
-        sa.Column("country", sa.String(100), nullable=False),
-        sa.Column("city", sa.String(100), nullable=False),
+        sa.Column("rated_power", sa.String(100), nullable=False),
+        sa.Column("country", sa.String(100), nullable=True),
+        sa.Column("city", sa.String(100), nullable=True),
         sa.Column("latitude", sa.Float(3), nullable=False),
         sa.Column("longitude", sa.Float(3), nullable=False),
         sa.Column(
@@ -46,7 +48,7 @@ def upgrade() -> None:
         sa.Column(
             "charging_station_id",
             sa.Integer,
-            sa.ForeignKey("charging_station.id", ondelete="CASCADE"),
+            sa.ForeignKey("charging_stations.id", ondelete="CASCADE"),
             unique=True
         ),
         sa.Column("id", sa.Integer, primary_key=True),
@@ -183,8 +185,19 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
+    # op.drop_table("role_permissions")
+    # op.drop_table("user_roles")
+    # op.drop_table("permissions")
+    # op.drop_table("roles")
+    # op.drop_table("users")
+
+
     op.drop_table("role_permissions")
     op.drop_table("user_roles")
     op.drop_table("permissions")
     op.drop_table("roles")
+    op.drop_table("reservations")
+    op.drop_table("charger")
+    op.drop_table("charging_stations")
     op.drop_table("users")
+
