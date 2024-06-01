@@ -77,4 +77,3 @@ class UserService:
 
         connection.execute(statement, {"user_id": user_id})
         connection.commit()
-
