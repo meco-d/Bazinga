@@ -19,7 +19,7 @@ class Oauth2Scheme:
 class Token(BaseModel):
     access_token: str
     token_type: str
-    role: str
+    role: str | None = None
 
 
 class TokenData(BaseModel):
