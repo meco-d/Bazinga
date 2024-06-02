@@ -8,7 +8,8 @@ import {Station} from "@core/models/models";
 })
 export class ApiService {
 
-  gatewayUrl = 'http://localhost:4000/';
+  // gatewayUrl = 'http://localhost:4000/'; // locally
+  gatewayUrl = 'database-service:80/'; //deployed
 
   constructor(private http: HttpClient) { }
 
