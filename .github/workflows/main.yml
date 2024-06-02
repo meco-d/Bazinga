@@ -41,7 +41,7 @@ jobs:
       - name: clean known hosts 
         run: echo "" > ~/.ssh/known_hosts
       - name: clean the file
-        run: ssh -o StrictHostKeyChecking=no -p 5544 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} find . -type d ! -name "db-data" -exec rm -rf {} \;
+        run: ssh -o StrictHostKeyChecking=no -p 5544 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} 'find . -type d ! -name "db-data" -exec rm -rf {} \;'
       - name: build env
         run: |
           echo "${{secrets.POSTGRES_PASSWORD}}" >> .env
