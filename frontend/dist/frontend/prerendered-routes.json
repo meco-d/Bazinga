@@ -1,0 +1,8 @@
+{
+  "routes": [
+    "/",
+    "/error-page",
+    "/login",
+    "/map"
+  ]
+}
