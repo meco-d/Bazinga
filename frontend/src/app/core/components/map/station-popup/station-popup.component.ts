@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Station } from "@core/models/models";
+import {ChargerType, Station} from "@core/models/models";
 
 @Component({
   selector: 'app-station-popup',
@@ -13,4 +13,6 @@ export class StationPopupComponent {
   drawRoute() {
     this.drawRouteEvent.emit(this.station.route);
   }
+
+  protected readonly ChargerType = ChargerType;
 }
