@@ -1,13 +1,23 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { AuthService } from "./services/authentication/auth.service";
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  providers: [AuthService],
 })
 export class AppComponent {
-  title = 'frontend';
+  isLoggedIn = false;
+  private authService: AuthService;
+  constructor(authService: AuthService) {
+    this.authService = authService;
+    this.isLoggedIn = location.pathname !== '/login' && location.pathname !== '/signup';
+  }
+  title = 'learning-enhancement';
+  // ngOnInit(){
+  //   this.authService.authStatus$.subscribe(isAuthenticated => {
+  //     this.isLoggedIn = isAuthenticated;
+  //   });
+  //  }
 }

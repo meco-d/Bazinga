@@ -1,0 +1,10 @@
+.navbar-center  {
+  display: flex;
+  gap: 16px;
+}
+
+@media (max-width: 550px) {
+  .logo {
+    display: none;
+  }
+}
