@@ -37,11 +37,18 @@ jobs:
       - name: Build Angular project
         run: npm run build --prod
         working-directory: frontend
+     
       - name: clean known hosts 
         run: echo "" > ~/.ssh/known_hosts
       - name: clean the file
-        run: ssh -o StrictHostKeyChecking=no -p 5544 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} rm -rf /home/ubuntu/deploy/*
-
+        run: ssh -o StrictHostKeyChecking=no -p 5544 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} rm -rf /home/ubuntu/deply/*
+      - name: build env
+        run: |
+          echo "${{secrets.POSTGRES_PASSWORD}}" >> .env
+          echo "${{secrets.PGADMIN_DEFAULT_EMAIL}}" >> .env
+          echo "${{secrets.PGADMIN_DEFAULT_PASSWORD}}" >> .env
+      - name: ls -R 
+        run: ls -R 
       - name: copy file via ssh key
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -53,4 +60,4 @@ jobs:
             target: /home/ubuntu/deply/
       - name: docker compose up
         run: >
-          ssh -o StrictHostKeyChecking=no -p 5544 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} sudo docker compose -f /home/ubuntu/deploy/docker_compose.yaml up -d --remove-orphans 
+          ssh -o StrictHostKeyChecking=no -p 5544 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} sudo docker compose -f /home/ubuntu/deply/docker_compose.yaml up -d --remove-orphans 
