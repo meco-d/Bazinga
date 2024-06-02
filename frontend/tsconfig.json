@@ -11,6 +11,12 @@
       "@core/*": [
         "app/core/*"
       ],
+      "@rdx-dashboards/*": [
+        "app/rdx-dashboards/*"
+      ],
+      "@reports/*": [
+        "app/reports/*"
+      ],
 
     },
     "typeRoots": [

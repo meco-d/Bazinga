@@ -1,7 +1,7 @@
 import {NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import * as fromComponents from '@core/components';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -21,6 +21,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {MatCardModule} from "@angular/material/card";
 import {MenubarModule} from "primeng/menubar";
 import {ToolbarModule} from "primeng/toolbar";
+import {CardModule} from "primeng/card";
 
 
 const MaterialModules = [
@@ -46,7 +47,7 @@ const MaterialModules = [
 
 @NgModule({
   declarations: [...fromComponents.components],
-  imports: [CommonModule, HttpClientModule, RouterModule, MaterialModules, MenubarModule, ToolbarModule],
+  imports: [CommonModule, HttpClientModule, RouterModule, MaterialModules, MenubarModule, ToolbarModule, CardModule],
   exports: [...fromComponents.components],
   providers: [
     // {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

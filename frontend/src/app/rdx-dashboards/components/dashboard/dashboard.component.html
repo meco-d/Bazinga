@@ -1,0 +1,30 @@
+<div class="dashboard">
+  <div class="card-container">
+    <div class="card-group">
+      <h2 class="group-header">ZapMap Services</h2>
+      <div class="card-grid">
+        <p-card *ngFor="let item of dashboardItems.slice(0, 5)" class="card">
+          <ng-template pTemplate="header">
+            <i [class]="'pi ' + item.icon"></i>
+          </ng-template>
+          <ng-template pTemplate="title">
+            {{ item.title }}
+          </ng-template>
+        </p-card>
+      </div>
+    </div>
+    <div class="card-group">
+      <h2 class="group-header">Charge Point Operations</h2>
+      <div class="card-grid">
+        <p-card *ngFor="let item of dashboardItems.slice(5)" class="card">
+          <ng-template pTemplate="header">
+            <i [class]="'pi ' + item.icon"></i>
+          </ng-template>
+          <ng-template pTemplate="title">
+            {{ item.title }}
+          </ng-template>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>

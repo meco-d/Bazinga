@@ -8,7 +8,7 @@ import {CoreModule} from "@core/core.module";
 
 
 @NgModule({
-  imports: [CommonModule, AppRoutingModule, BrowserModule, BrowserAnimationsModule, CoreModule],
+  imports: [CommonModule, AppRoutingModule, BrowserModule, BrowserAnimationsModule, CoreModule, HttpClientModule],
   providers: [HttpClient, DatePipe, HttpClientModule],
   exports: []
 })

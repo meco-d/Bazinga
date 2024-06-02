@@ -1,0 +1,63 @@
+{
+  "dashboardItems": [
+    {
+      "title": "Manage Badges",
+      "icon": "pi pi-id-card",
+      "data": [
+        {
+          "authenticationId": "04451FAA536016",
+          "status": "Enabled",
+          "badgeInformation": {
+            "visualBadgeId": "9AFU 554 Home",
+            "description": "Home Charging Staff",
+            "tags": ""
+          },
+          "evseId": "",
+          "company": "Default",
+          "vehicle": {
+            "makeModel": "Audi - Q7 (with 17.3 kWh battery)",
+            "licensePlate": "",
+            "vehicleType": ""
+          },
+          "user": {
+            "firstName": "Mike",
+            "lastName": "Summers",
+            "email": "mike.summers@bestrunsap.com"
+          }
+        },
+        {
+          "authenticationId": "04451FAA536015",
+          "status": "Enabled",
+          "badgeInformation": {
+            "visualBadgeId": "8KSU 123 Home",
+            "description": "Home Charging Staff",
+            "tags": ""
+          },
+          "evseId": "",
+          "company": "Default",
+          "vehicle": {
+            "makeModel": "",
+            "licensePlate": "",
+            "vehicleType": ""
+          },
+          "user": {
+            "firstName": "Kevin",
+            "lastName": "Smith",
+            "email": "kevin.smith@u-pharma.com"
+          }
+        }
+      ],
+      "columns": [
+        { "field": "authenticationId", "header": "Authentication ID" },
+        { "field": "status", "header": "Status" },
+        { "field": "badgeInformation.visualBadgeId", "header": "Badge Information" },
+        { "field": "evseId", "header": "EVSE ID" },
+        { "field": "company", "header": "Company" },
+        { "field": "vehicle.makeModel", "header": "Vehicle" },
+        { "field": "user.firstName", "header": "User First Name" },
+        { "field": "user.lastName", "header": "User Last Name" },
+        { "field": "user.email", "header": "User Email" }
+      ]
+    }
+  ]
+}
