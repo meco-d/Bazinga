@@ -46,10 +46,10 @@ jobs:
         with:
             host: ${{ secrets.REMOTE_HOST }}
             username: ${{ secrets.REMOTE_USER }}
-            port: 4422
+            port: 5544
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             source: "./"
-            target: /home/ubuntu/tmp/
+            target: /home/ubuntu/deply/
       - name: docker compose up
         run: >
-          ssh -o StrictHostKeyChecking=no -p 4422 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} sudo docker compose -f /home/ubuntu/tmp/docker_compose.yaml up -d --remove-orphans 
+          ssh -o StrictHostKeyChecking=no -p 5544 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} sudo docker compose -f /home/ubuntu/deploy/docker_compose.yaml up -d --remove-orphans 
