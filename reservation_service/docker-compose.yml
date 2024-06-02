@@ -8,8 +8,6 @@ services:
     working_dir: /code
     ports:
       - '80:80'
-    env_file:
-      - .env
     volumes:
         - /home/ubuntu/venv
         - ./docker/ssl:/etc/nginx/ssl

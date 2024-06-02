@@ -1,0 +1,54 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    // This is vs code config files for debugging. Just press F5 and the debugger will do its magic
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "FastAPI: Backend",
+            "type": "python",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "src.v1.main:app",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8080",
+                "--reload",
+            ],
+            "cwd": "${workspaceFolder}/backend",
+            "justMyCode": false
+        },
+        {
+            "name": "FastAPI: Reservation service",
+            "type": "python",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "src.v1.main:app",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8081",
+                "--reload",
+            ],
+            "cwd": "${workspaceFolder}/reservation_service",
+            "justMyCode": false
+        },
+        {
+            "name": "Python: Run Kafka Producer",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/edge_producer/main.py",
+            "env": {
+                "KAFKA_HOST": "localhost",
+                "KAFKA_PORT": "9092",
+                "CHARGING_SESSION_INTERVAL": "0.05"
+            },
+            "cwd": "${workspaceFolder}/edge_producer/",
+            "console": "integratedTerminal"
+        }
+    ]
+}

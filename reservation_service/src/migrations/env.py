@@ -1,4 +1,5 @@
 from logging.config import fileConfig
+from os import getenv
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
@@ -6,17 +7,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.engine.url import make_url
 
 from alembic import context
-import dotenv
-from alembic.config import Config
-import os
-
-dotenv.load_dotenv()
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-
-config.set_main_option("sqlalchemy.url", os.getenv('PG_URI'))
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -73,6 +67,8 @@ def run_migrations_offline() -> None:
     with context.begin_transaction():
         context.run_migrations()
 
+if getenv('PG_URI') is not None and getenv('PG_URI') != '':
+    config.set_main_option("sqlalchemy.url", getenv('PG_URI'))
 
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode.

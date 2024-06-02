@@ -1,4 +1,5 @@
 from fastapi import HTTPException
+from src.v1.modules.chargers.chargers_request_model import CreateChargerRequestModel, create_model
 from src.v1.database import DatabaseConnection
 from datetime import datetime, timedelta, timezone
 from sqlalchemy import text
@@ -11,30 +12,28 @@ from src.v1.modules.users.users_request_model import (
 )
 
 
-class UserService:
+class ChargerService:
     def __init__(self) -> None:
         pass
 
-    def create_user(self, user: CreateUserRequestModel):
+    def create_charger(self, charger: CreateChargerRequestModel):
         try:
-            auth_service = AuthService()
-            user.password = auth_service.get_password_hash(user.password)
-
             connection = DatabaseConnection().get_connection()
             statement = text(
                 """
-            INSERT INTO users (username, email, password, created_at, updated_at)
-            VALUES (:username, :email, :password, :created_at, :updated_at)
+            INSERT INTO chargers (charging_station_id, type, status, rated_power, created_at, updated_at)
+            VALUES (:csi, :t, :s, :r, :created_at, :updated_at)
             """
             )
 
-            user = create_user_model(user)
+            charger = create_model(charger)
             statement = statement.bindparams(
-                username=user.username,
-                email=user.email,
-                password=user.password,
-                created_at=user.created_at,
-                updated_at=user.updated_at,
+                csi=charger.charging_station_id,
+                t=charger.type,
+                s=charger.status,
+                r=charger.rated_power,
+                created_at=charger.created_at,
+                updated_at=charger.updated_at,
             )
             connection.execute(statement)
             connection.commit()
@@ -43,32 +42,33 @@ class UserService:
             connection.rollback()
             raise HTTPException(status_code=500, detail=exc)
 
-    def update_user(self):
+    def update_charger(self):
         pass
 
-    def get_user(self, user_id: int):
+    def get_charger(self, id: int):
         connection = DatabaseConnection().get_connection()
         statement = text(
             """
-            SELECT id, username, email FROM users WHERE id = :user_id
+            SELECT * from chargers WHERE id = :id
             """
         )
-        result_item = connection.execute(statement, {"user_id": user_id}).fetchone()
+        result_item = connection.execute(statement, {"id": id}).fetchone()
 
         return result_item
 
-    def get_user_collection(self):
+    def get_charger_collection(self):
         connection = DatabaseConnection().get_connection()
         statement = text(
             """
-        select id, username, email from users
+        select * from chargers
         """
         )
         result_list = connection.execute(statement).fetchall()
+        connection.close()
 
         return result_list
 
-    def delete_user(self, user_id):
+    def delete_charger(self, charger_id):
         connection = DatabaseConnection().get_connection()
         statement = text(
             """
@@ -78,3 +78,4 @@ class UserService:
 
         connection.execute(statement, {"user_id": user_id})
         connection.commit()
+        connection.close()

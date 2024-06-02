@@ -23,9 +23,92 @@ def upgrade() -> None:
     op.create_table(
         "users",
         sa.Column("id", sa.Integer, primary_key=True),
-        sa.Column("username", sa.String(50), nullable=False),
+        sa.Column("username", sa.String(100), nullable=False),
         sa.Column("email", sa.String(100), nullable=False),
         sa.Column("password", sa.String(100), nullable=False),
+        sa.Column(
+            "created_at", sa.DateTime, nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at",
+            sa.DateTime,
+            nullable=False,
+            server_default=sa.func.now(),
+            onupdate=sa.func.now(),
+        ),
+    )
+
+    op.create_table(
+        "charging_stations",
+         sa.Column(
+            "user_id",
+            sa.Integer,
+            sa.ForeignKey("users.id", ondelete="CASCADE"),
+            unique=False
+        ),
+        sa.Column("id", sa.Integer, primary_key=True),
+        sa.Column("name", sa.String(100), nullable=False),
+        sa.Column("status", sa.String(100), nullable=False),
+        sa.Column("country", sa.String(100), nullable=True),
+        sa.Column("city", sa.String(100), nullable=True),
+        sa.Column("latitude", sa.Float(6), nullable=False),
+        sa.Column("longitude", sa.Float(6), nullable=False),
+        sa.Column(
+            "created_at", sa.DateTime, nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at",
+            sa.DateTime,
+            nullable=False,
+            server_default=sa.func.now(),
+            onupdate=sa.func.now(),
+        ),
+    )
+
+    op.create_table(
+        "chargers",
+        sa.Column(
+            "charging_station_id",
+            sa.Integer,
+            sa.ForeignKey("charging_stations.id", ondelete="CASCADE"),
+            unique=False
+        ),
+        sa.Column("id", sa.Integer, primary_key=True),
+        sa.Column("status", sa.String(100), nullable=False),
+        sa.Column("type", sa.String(100), nullable=False),
+        sa.Column("rated_power", sa.String(100), nullable=False),
+        sa.Column(
+            "created_at", sa.DateTime, nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at",
+            sa.DateTime,
+            nullable=False,
+            server_default=sa.func.now(),
+            onupdate=sa.func.now(),
+        ),
+    )
+
+    op.create_table(
+        "reservations",
+        sa.Column(
+            "charger_id",
+            sa.Integer,
+            sa.ForeignKey("chargers.id", ondelete="CASCADE"),
+            unique=False
+
+        ),
+        sa.Column(
+            "user_id",
+            sa.Integer,
+            sa.ForeignKey("users.id", ondelete="CASCADE"),
+            unique=False
+        ),
+        sa.Column("id", sa.String(100), primary_key=True),
+        sa.Column(
+            "startTime", sa.DateTime, nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column("endTime", sa.DateTime, nullable=False, server_default=sa.func.now()),
         sa.Column(
             "created_at", sa.DateTime, nullable=False, server_default=sa.func.now()
         ),
@@ -106,8 +189,19 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
+    # op.drop_table("role_permissions")
+    # op.drop_table("user_roles")
+    # op.drop_table("permissions")
+    # op.drop_table("roles")
+    # op.drop_table("users")
+
+
     op.drop_table("role_permissions")
     op.drop_table("user_roles")
     op.drop_table("permissions")
     op.drop_table("roles")
+    op.drop_table("reservations")
+    op.drop_table("chargers")
+    op.drop_table("charging_stations")
     op.drop_table("users")
+
