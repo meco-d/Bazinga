@@ -1,14 +1,12 @@
 {
-  "name": "frontend",
+  "name": "zap-map",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:frontend": "node dist/frontend/server/server.mjs",
-    "clean-install": "npm version && rimraf package-lock.json && rimraf node_modules && npm cache clear --force && npm install"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {

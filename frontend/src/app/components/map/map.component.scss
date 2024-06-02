@@ -1,0 +1,39 @@
+.map-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  place-items: center;
+  display: grid;
+}
+
+.map {
+  height: 100%;
+  width: 100%;
+}
+
+.map-card {
+  position: absolute;
+  top: 80px;
+  left: 30px;
+  z-index: 1000; // Ensure it stays on top of the map
+  width: 350px; // Adjust the width as needed
+}
+
+.route-card{
+  position: absolute;
+  bottom: 25px;
+  z-index: 1000; // Ensure it stays on top of the map
+  width: 350px; // Adjust the width as needed
+}
+
+:host ::ng-deep .p-divider{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+:host ::ng-deep .p-card-body{
+  padding: 10px;
+}
+:host ::ng-deep .p-card-content{
+  padding: 10px;
+}
