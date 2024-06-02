@@ -3,7 +3,7 @@
   <span class="station-street">St. {{station.streetName}}</span>
   <p-divider></p-divider>
   <div class="chargers-container">
-    <div class="charger">
+    <div class="charger" *ngIf="station.type===ChargerType.THREE_PHASE">
       <img alt="Fast Charger" src="assets/images/fast-cherger.svg" height="30px"/>
       <div class="charger-info">
         <span class="charger-type">Fast Charger</span>

@@ -2,6 +2,8 @@
   position: relative;
   height: 100%;
   width: 100%;
+  place-items: center;
+  display: grid;
 }
 
 .map {
@@ -13,6 +15,13 @@
   position: absolute;
   top: 10px;
   left: 10px;
+  z-index: 1000; // Ensure it stays on top of the map
+  width: 350px; // Adjust the width as needed
+}
+
+.route-card{
+  position: absolute;
+  bottom: 25px;
   z-index: 1000; // Ensure it stays on top of the map
   width: 350px; // Adjust the width as needed
 }

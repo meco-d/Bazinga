@@ -1,9 +1,18 @@
-import { Component, OnInit, Injector, ComponentFactoryResolver, ApplicationRef, ComponentRef } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { Inject, PLATFORM_ID } from '@angular/core';
-import { PrimeNGConfig } from "primeng/api";
-import { StationPopupComponent } from "@core/components";
-import { Station } from "@core/models/models";
+import {
+  ApplicationRef,
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Inject,
+  Injector,
+  OnInit,
+  PLATFORM_ID
+} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
+import {PrimeNGConfig} from "primeng/api";
+import {StationPopupComponent} from "@core/components";
+import {ChargerType, Station} from "@core/models/models";
+import {ApiService} from "@core/services/api.service";
 
 @Component({
   selector: 'app-map',
@@ -20,19 +29,17 @@ export class MapComponent implements OnInit {
   openChecked: boolean = false;
   showSwitches: boolean = false;
   routeLayer: any;
-
-  markerList: Station[] = [
-    { lat: 41.3275, lng: 19.8187, name: 'Marker 1' },
-    { lat: 41.3300, lng: 19.8200, name: 'Marker 2' },
-    { lat: 41.3250, lng: 19.8170, name: 'Marker 3' },
-  ];
+  markerList: Station[] = [];
+  routeInstructions: any[] = []; // New variable to store route instructions
+  showRouteCard: boolean = false; // Variable to control visibility of route card
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private primengConfig: PrimeNGConfig,
     private resolver: ComponentFactoryResolver,
     private injector: Injector,
-    private appRef: ApplicationRef
+    private appRef: ApplicationRef,
+    private apiService: ApiService // Inject ApiService here
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +50,16 @@ export class MapComponent implements OnInit {
         this.initializeMap();
       }).catch(err => console.log(err));
     }
+
+    this.apiService.getStationList().subscribe(
+      (stations: Station[]) => {
+        this.markerList = stations;
+        console.log('Station list:', this.markerList);
+      },
+      error => {
+        console.error('Error fetching station list:', error);
+      }
+    );
   }
 
   async loadLeafletLibraries() {
@@ -64,50 +81,101 @@ export class MapComponent implements OnInit {
     this.map = new this.Leaflet.Map('map', options);
     this.map.setView(new this.Leaflet.LatLng(41.3275, 19.8187), 17);
 
-    const customIcon = new this.Leaflet.Icon({
-      iconUrl: 'assets/images/normal-station.svg',
-      iconSize: [41, 41],
-      iconAnchor: [20, 0],
-    });
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         const userLocation = new this.Leaflet.LatLng(position.coords.latitude, position.coords.longitude);
         this.map.setView(userLocation, 14);
-        this.markerList.forEach(marker => {
-          const markerLeaflet = new this.Leaflet.Marker([marker.lat, marker.lng], { icon: customIcon });
-          markerLeaflet.addTo(this.map);
-
-          this.calculateRouteDistance(userLocation, new this.Leaflet.LatLng(marker.lat, marker.lng)).then(route => {
-            this.getStreetName(marker.lat, marker.lng).then(streetName => {
-              marker.streetName = streetName;
-              marker.distance = (route.features[0].properties.summary.distance / 1000).toFixed(2)
-              marker.fastAvailable = 0;
-              marker.slowAvailable = 2;
-              marker.route = route;
-
-              const stationPopup = this.createPopupComponent(marker);
-              markerLeaflet.bindPopup(stationPopup, {minWidth: 340});
-            }).catch(error => {
-              console.error(error);
-            });
-          }).catch(error => {
-            console.error(error);
-          });
-        });
-
-        const userMarker = new this.Leaflet.Marker(userLocation, {
-          icon: new this.Leaflet.Icon({
-            iconUrl: 'assets/images/user-location.svg',
-            iconSize: [30, 30],
-          })
-        });
-        userMarker.addTo(this.map);
+        this.addMarkersToMap(userLocation);
       }, error => {
         console.error(error);
       });
     } else {
       console.error('Geolocation is not supported by this browser.');
+    }
+  }
+
+  addMarkersToMap(userLocation?: any): void {
+    if (userLocation) {
+      this.markerList.forEach(marker => {
+        let fastChargerCount = 0;
+        let slowChargerCount = 0;
+        let fastAvailableCount = 0;
+        let slowAvailableCount = 0;
+        let totalAvailableCount = 0;
+        let iconUrl: string;
+        let stationType: ChargerType;
+        marker.chargerList?.forEach(charger => {
+          if(charger.type === ChargerType.THREE_PHASE) {
+            fastChargerCount++;
+            if(charger.status === 'Free') {
+              fastAvailableCount++;
+              totalAvailableCount++;
+            }
+          } else if(charger.type === ChargerType.ONE_PHASE) {
+            slowChargerCount++;
+            if(charger.status === 'Free') {
+              slowAvailableCount++;
+              totalAvailableCount++;
+            }
+          }
+        })
+
+        console.log('fastChargerCount:', fastChargerCount);
+        console.log('slowChargerCount:', slowChargerCount);
+        console.log('fastAvailableCount:', fastAvailableCount);
+        console.log('slowAvailableCount:', slowAvailableCount);
+        console.log('totalAvailableCount:', totalAvailableCount);
+
+
+        if(fastChargerCount > 0 && totalAvailableCount >0){
+          iconUrl = 'assets/images/fast-station.svg';
+          stationType = ChargerType.THREE_PHASE;
+        }else if(fastChargerCount === 0 && slowChargerCount > 0 && totalAvailableCount >0){
+          iconUrl = 'assets/images/normal-station.svg';
+          stationType = ChargerType.ONE_PHASE;
+        }else if(fastChargerCount > 0 && totalAvailableCount === 0){
+          iconUrl = 'assets/images/busy-fast-station.svg';
+        }else if(fastChargerCount == 0 && slowChargerCount > 0 && totalAvailableCount === 0){
+          iconUrl = 'assets/images/busy-normal-station.svg';
+        }else{
+          iconUrl = 'assets/images/maintenance-station.svg';
+        }
+
+        const customIcon = new this.Leaflet.Icon({
+          iconUrl: iconUrl,
+          iconSize: [41, 41],
+          iconAnchor: [20, 0],
+        });
+
+        const markerLeaflet = new this.Leaflet.Marker([marker.latitude, marker.longitude], { icon: customIcon });
+        markerLeaflet.addTo(this.map);
+
+        this.calculateRouteDistance(userLocation, new this.Leaflet.LatLng(marker.latitude, marker.longitude)).then(route => {
+          this.getStreetName(marker.latitude, marker.longitude).then(streetName => {
+            marker.streetName = streetName;
+            marker.distance = (route.features[0].properties.summary.distance / 1000).toFixed(2);
+            marker.fastAvailable = fastAvailableCount;
+            marker.slowAvailable = slowAvailableCount;
+            marker.route = route;
+            marker.type = stationType;
+
+            const stationPopup = this.createPopupComponent(marker);
+            markerLeaflet.bindPopup(stationPopup, { minWidth: 340 });
+          }).catch(error => {
+            console.error(error);
+          });
+        }).catch(error => {
+          console.error(error);
+        });
+      });
+
+      const userMarker = new this.Leaflet.Marker(userLocation, {
+        icon: new this.Leaflet.Icon({
+          iconUrl: 'assets/images/user-location.svg',
+          iconSize: [30, 30],
+        })
+      });
+      userMarker.addTo(this.map);
     }
   }
 
@@ -159,6 +227,19 @@ export class MapComponent implements OnInit {
     }).addTo(this.map);
 
     this.map.fitBounds(this.routeLayer.getBounds());
+
+    // Extract instructions from the route and update the variable
+    this.routeInstructions = route.features[0].properties.segments[0].steps.map((step: any) => step.instruction);
+    this.showRouteCard = true; // Show route card
+  }
+
+  // Method to clear route and hide route card
+  clearRoute() {
+    if (this.routeLayer) {
+      this.map.removeLayer(this.routeLayer);
+      this.routeInstructions = []; // Clear route instructions
+    }
+    this.showRouteCard = false; // Hide route card
   }
 
   toggleSwitches() {

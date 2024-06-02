@@ -26,8 +26,19 @@
             <label>Open Now</label>
             <p-inputSwitch [(ngModel)]="openChecked"/>
           </div>
-<!--          <p-divider type="solid"></p-divider>-->
         </div>
+      </div>
+    </ng-template>
+  </p-card>
+  <p-card class="route-card" [style.display]="showRouteCard ? 'block' : 'none'">
+    <ng-template pTemplate="content">
+      <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center">
+        <span style="color: #343F5A; font-family: 'Montserrat', sans-serif; font-weight: bold; font-size: 14px;">Directions</span>
+        <p-button icon='pi pi-times' [rounded]="true" [text]="true" severity="secondary" (click)="clearRoute()"></p-button>
+      </div>
+      <div *ngFor="let instruction of routeInstructions">
+        <p-divider></p-divider>
+        <span style="color: #343F5A; font-family: 'Montserrat', sans-serif; font-size: 14px;">{{ instruction }}</span>
       </div>
     </ng-template>
   </p-card>
