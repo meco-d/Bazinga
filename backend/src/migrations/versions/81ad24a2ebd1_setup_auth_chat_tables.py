@@ -51,8 +51,8 @@ def upgrade() -> None:
         sa.Column("status", sa.String(100), nullable=False),
         sa.Column("country", sa.String(100), nullable=True),
         sa.Column("city", sa.String(100), nullable=True),
-        sa.Column("latitude", sa.Float(3), nullable=False),
-        sa.Column("longitude", sa.Float(3), nullable=False),
+        sa.Column("latitude", sa.Float(6), nullable=False),
+        sa.Column("longitude", sa.Float(6), nullable=False),
         sa.Column(
             "created_at", sa.DateTime, nullable=False, server_default=sa.func.now()
         ),

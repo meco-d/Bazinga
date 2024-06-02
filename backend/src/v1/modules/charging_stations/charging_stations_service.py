@@ -67,7 +67,18 @@ class ChargingStationService:
         connection = DatabaseConnection().get_connection()
         statement = text(
             """
-        select * from charging_stations
+        select charging_stations.*, json_agg(json_build_object(
+        'charging_station_id',chargers.charging_station_id,
+        'id',chargers.id,
+        'status',chargers.status,
+        'type',chargers.type,
+        'rated_power',chargers.rated_power,
+        'updated_at',chargers.updated_at,
+        'created_at',chargers.created_at
+        )) as chargers
+        from charging_stations
+        left join chargers on charging_stations.id = chargers.charging_station_id
+        GROUP BY charging_stations.id;
         """
         )
         result_list = connection.execute(statement).fetchall()

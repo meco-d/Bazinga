@@ -1,6 +1,7 @@
 from typing import List, TypeVar
 
 from pydantic import BaseModel
+from src.v1.modules.chargers.chargers_response_model import GetChargerCollectionResponse, GetChargerResponse
 
 
 class GetChargingStationsCollectionResponse:
@@ -16,17 +17,19 @@ class GetChargingStationsCollectionResponse:
         longitude: float,
         created_at: str,
         updated_at: str,
+        chargers: List[dict]
     ):
         self.userId = userId
         self.id = id
         self.name = name
-        # self.status = status
+        self.status = status
         self.country = country
         self.city = city
         self.latitude = latitude
         self.longitude = longitude
         self.created_at = created_at
         self.updated_at = updated_at
+        self.chargers = chargers
 
     # (7, 'string', 'One-Phase', 'In use', 'rated', 'countr', 'city', 0.0, 0.0, datetime.datetime(2024, 6, 1, 17, 41, 39), datetime.datetime(2024, 6, 1, 17, 41, 39))
 
@@ -46,7 +49,7 @@ class GetChargingStationsResponse:
     ):
         self.id = id
         self.name = name
-        # self.status = status
+        self.status = status
         self.country = country
         self.city = city
         self.latitude = latitude
