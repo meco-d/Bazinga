@@ -5,8 +5,7 @@ import json
 
 # The description field of the api spec is compatible with readme syntax
 description = """
-Text Authoring Service
-Work In Progress (WIP)
+Zapmap: a data informaed transportation solution
 """
 
 
@@ -15,7 +14,7 @@ def set_openapi_spec(openapi_schema, routes):
         return openapi_schema
 
     openapi_schema = get_openapi(
-        title="Servcie",
+        title="ZAPMAP",
         version="0.1",
         # summary="This is a very custom OpenAPI schema",
         description=description,
