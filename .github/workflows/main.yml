@@ -42,9 +42,9 @@ jobs:
         run: ssh -o StrictHostKeyChecking=no -p 5544 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} 'sudo find /home/ubuntu/deply/ -maxdepth 1 -mindepth 1 ! -name 'db-data' -exec rm -rf {} +'
       - name: build env
         run: |
-          echo "${{POSTGRES_PASSWORD=secrets.POSTGRES_PASSWORD}}" >> .env
-          echo "${{PGADMIN_DEFAULT_EMAI=secrets.PGADMIN_DEFAULT_EMAIL}}" >> .env
-          echo "${{PGADMIN_DEFAULT_PASSWORD=secrets.PGADMIN_DEFAULT_PASSWORD}}" >> .env
+          echo "POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}" >> .env
+          echo "PGADMIN_DEFAULT_EMAI=${{PGADMIN_DEFAULT_EMAI=secrets.PGADMIN_DEFAULT_EMAIL}}" >> .env
+          echo "PGADMIN_DEFAULT_PASSWORD=${{secrets.PGADMIN_DEFAULT_PASSWORD}}" >> .env
       - name: ls -R 
         run: ls -R 
       - name: copy file via ssh key
