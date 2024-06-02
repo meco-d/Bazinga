@@ -17,7 +17,7 @@ Welcome to the EVolution project! This repository contains the code for developi
 
 ## Project Overview
 
-EVolution aims to revolutionize the EV charging infrastructure by providing:
+ZapMap aims to revolutionize the EV charging infrastructure by providing:
 
 - A user-friendly interface for EV owners, station operators, and maintenance teams.
 - Real-time updates on charger status (online, offline, reserved) and energy usage insights.

@@ -1,0 +1,113 @@
+<div class="map-container">
+<!--    <div class="map-overlay">-->
+        <div class="map-overlay-inner">
+            <h2>My Stations</h2>
+            <div class="card">
+                <p-toast />
+                <p-table [value]="stations" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 5rem"></th>
+                            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+                            <th pSortableColumn="city">city <p-sortIcon field="city" /></th>
+                            <th pSortableColumn="country">Country <p-sortIcon field="country" /></th>
+                            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product let-expanded="expanded">
+                        <tr>
+                            <td>
+                                <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                            </td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.city }}</td>
+                            <td>{{ product.country}}</td>
+                            <td>
+                                <p-tag [value]="product.status"  />
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="rowexpansion" let-product>
+                        <tr>
+                            <td colspan="7">
+                                <div class="p-3">
+                                    <p-table [value]="product.chargers" dataKey="id">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
+                                                <th pSortableColumn="type">Type <p-sortIcon field="type" /></th>
+                                                <th pSortableColumn="rated_power">Rated Power <p-sortIcon field="rated_power" /></th>
+
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-chargers>
+                                            <tr>
+                                                <td>{{ chargers.status }}</td>
+                                                <td>{{ chargers.type }}</td>
+                                                <td>{{ chargers.rated_power }}</td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage">
+                                            <tr>
+                                                <td colspan="6">There are no chargers for this Station yet.</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div style="display: flex; flex-direction: row; gap: 16px; justify-content: space-evenly; width: 100%; align-items: center;">
+
+            </div>
+            <br>
+            <br>
+            <br>
+            <div style="display: flex; flex-direction: row; gap: 16px; justify-content: center; width: 100%;  height: 100%; align-items: center;">
+                <div>
+                    <p-card>
+                        <span style="color: #343F5A; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight:bold;">New Station</span>
+                        <div style="display: flex; flex-direction: column; gap: 16px; justify-content: center; width: 100%; align-items: center;">
+                            <input style="width: 260px" type="text" pInputText placeholder="Name" [(ngModel)]="name"/>
+                            <input style="width: 260px" type="text" pInputText placeholder="Longtitude , Latitude" [(ngModel)]="lnglat"/>
+                        </div>
+                        <br>
+                        <p-button
+                                label="Add new Station"
+                                styleClass="p-button-rounded p-button-primary"
+                        ></p-button>
+                    </p-card>
+                </div>
+                <div>
+                    <div>
+                        <p-card>
+                            <span style="color: #343F5A; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight:bold;">New Charger</span>
+                            <div style="display: flex; flex-direction: column; gap: 16px; justify-content: center; width: 100%; height: 100%; align-items: center;">
+                                <p-dropdown
+                                        [options]="listStations"
+                                        [(ngModel)]="selectedCity"
+                                        optionLabel="name"
+                                        placeholder="Select a Station" />
+                                <p-dropdown
+                                        [options]="listStations"
+                                        [(ngModel)]="selectedCity"
+                                        optionLabel="name"
+                                        placeholder="Select a Charger Type" />
+                                <input style="width: 260px" type="text" pInputText placeholder="Rating" [(ngModel)]="lnglat"/>
+                                <p-button
+                                        label="Add new Charger per station"
+                                        styleClass="p-button-rounded p-button-danger"
+                                ></p-button>
+                            </div>
+                        </p-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--    </div>-->
+</div>
