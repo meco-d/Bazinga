@@ -43,7 +43,7 @@ jobs:
       - name: build env
         run: |
           echo "POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}" >> .env
-          echo "PGADMIN_DEFAULT_EMAI=${{PGADMIN_DEFAULT_EMAI=secrets.PGADMIN_DEFAULT_EMAIL}}" >> .env
+          echo "PGADMIN_DEFAULT_EMAI=${{secrets.PGADMIN_DEFAULT_EMAIL}}" >> .env
           echo "PGADMIN_DEFAULT_PASSWORD=${{secrets.PGADMIN_DEFAULT_PASSWORD}}" >> .env
       - name: ls -R 
         run: ls -R 
