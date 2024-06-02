@@ -1,0 +1,71 @@
+.popup-container {
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.station-name {
+  color: #343F5A;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.station-street {
+  color: #455072;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.chargers-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.charger {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.charger-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.charger-type {
+  color: #343F5A;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.charger-availability {
+  color: #455072;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.station-distance {
+  color: #343F5A;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 17px;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-content {
+  width: 340px !important;
+  max-width: 340px !important;
+  box-sizing: border-box;
+}
+
+.leaflet-popup-content {
+  overflow: hidden !important;
+}
+
+.leaflet-popup-tip-container {
+  display: none;
+}

@@ -3,6 +3,20 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
+    "baseUrl": "src",
+    "paths": {
+      "@auth/*": [
+        "app/auth/*"
+      ],
+      "@core/*": [
+        "app/core/*"
+      ],
+
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types/"
+    ],
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,

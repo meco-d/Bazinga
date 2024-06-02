@@ -1,0 +1,115 @@
+.toolbar {
+  position: relative;
+  background: #FFFFFF;
+  height: 60px;
+  border-bottom: 0.5px solid #D8D8D8;
+
+  & ::ng-deep .mat-select-trigger {
+    color: white;
+  }
+
+  & .menu-trigger {
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+  }
+}
+
+.search-button {
+  width: 60%;
+}
+
+.search {
+  width: 60%;
+  padding: 10px;
+  margin-top: 10px;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: 0;
+  text-align: left;
+  color: #414D55;
+  position: relative;
+  left: 2.6em;
+}
+
+.toolbar-name {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: 0;
+  text-align: left;
+  color: #414D55
+}
+
+.translate {
+  color: #414D55;
+}
+
+.profile-menu {
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0;
+  text-align: left;
+  color: #414D55;
+}
+
+.alb {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.en {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.tool-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+
+.select-tool {
+  width: 350px;
+}
+
+.search-button-2 {
+  padding: 10px;
+  margin-top: 15px;
+}
+
+.menu-all {
+  padding: 10px;
+  margin-top: 15px;
+}
+
+.icon-color {
+  color: #BBCDD9
+}
+
+.menu-buttons {
+  pointer-events: none;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: center;
+  color: #414D55;
+}
+
+.menu-img {
+  width: 30px;
+  height: 20px;
+}

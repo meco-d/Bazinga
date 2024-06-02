@@ -1,0 +1,35 @@
+<div class="main-div">
+  <div class="logo-container">
+    <img alt="Logo" src="assets/images/Radx-logo-web.svg" height="50px"/>
+  </div>
+  <div style="display: flex; flex-direction: column;">
+    <p-card class="card">
+      <ng-template pTemplate="header">
+        <span style="color: #343F5A; font-family: 'Montserrat', sans-serif; font-size: 45px; font-weight:bold;">Welcome to <span style="color: #3D73FF">Zap</span>Map</span>
+        <br>
+        <span style="">
+          Powering the Future of Electric Mobility
+        </span>
+        <br>
+        <br>
+        <span>
+         Log in to access real-time charging station updates, optimize your charging schedules, and join our eco-friendly driving community. Together, we drive towards a greener tomorrow.
+        </span>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <div style="display: flex; flex-direction: row; gap: 16px; justify-content: space-evenly; width: 100%">
+          <p-button
+            icon="pi pi-google"
+            label="Login with Google"
+            styleClass="p-button-rounded p-button-danger"
+            (click)="GoogleAuth()"
+          ></p-button>
+        </div>
+        <br>
+      </ng-template>
+    </p-card>
+  </div>
+  <div style="display:flex; flex-flow: row; flex-grow: 0.5">
+    <span style="flex: 1 1 auto;"></span>
+  </div>
+</div>

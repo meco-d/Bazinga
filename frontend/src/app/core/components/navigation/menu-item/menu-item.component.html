@@ -1,0 +1,23 @@
+<ng-container [ngTemplateOutlet]="hasChildren ? childMenu : parentMenu" [ngTemplateOutletContext]="{menu:item}"></ng-container>
+
+<ng-template #parentMenu let-menu="item">
+  <mat-list-item [routerLink]="item.path" routerLinkActive="nav-active-link" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']">
+    <mat-icon>{{item.icon}}</mat-icon>
+  </mat-list-item>
+</ng-template>
+
+<ng-template #childMenu let-menu="item">
+  <mat-expansion-panel [class.mat-elevation-z0]="true">
+    <mat-expansion-panel-header class="panel-header">
+      <mat-icon class="panel-icon">{{item.icon}}</mat-icon>
+      {{item.name}}
+    </mat-expansion-panel-header>
+    <mat-nav-list>
+      <mat-list-item *ngFor="let child of menu.children" [routerLink]="child.path" routerLinkActive="nav-active-link"
+                     [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <mat-icon>{{item.icon}}</mat-icon>
+        {{item.name}}
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-expansion-panel>
+</ng-template>
