@@ -12,6 +12,7 @@ export class AuthService {
   // gatewayUrl = 'database-service:80/'; //deployed
   private accessTokenKey = 'access_token';
   private refreshTokenKey = 'refresh_token';
+  private role = 'role';
 
   private authStatus = new BehaviorSubject<boolean>(this.isAuthenticated());
   authStatus$ = this.authStatus.asObservable();
@@ -36,6 +37,7 @@ export class AuthService {
           if (tokens.access_token) {
             localStorage.setItem(this.accessTokenKey, tokens.access_token);
             localStorage.setItem(this.refreshTokenKey, tokens.refresh_token);
+            localStorage.setItem(this.role, tokens.role);
             this.authStatus.next(true); // update authStatus
             location.replace('/map');
           }
@@ -51,6 +53,7 @@ export class AuthService {
     // Perform your logout logic here
     localStorage.removeItem(this.accessTokenKey);
     localStorage.removeItem(this.refreshTokenKey);
+    localStorage.removeItem(this.role);
     this.authStatus.next(false); // update authStatus
     location.replace('/login');
   }

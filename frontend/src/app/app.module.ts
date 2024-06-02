@@ -30,6 +30,9 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {environment} from "../environments/environment";
 import { SignupComponent } from './components/signup/signup.component';
 import {TooltipModule} from "primeng/tooltip";
+import { ProfileComponent } from './components/profile/profile.component';
+import {ToastModule} from "primeng/toast";
+import {TableModule} from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -38,38 +41,41 @@ import {TooltipModule} from "primeng/tooltip";
     MapComponent,
     NavbarComponent,
     StationPopupComponent,
-    SignupComponent
+    SignupComponent,
+    ProfileComponent
   ],
-  imports: [
-    PanelModule,
-    // FlexModule,
-    Button,
-    FloatLabelModule,
-    FormsModule,
-    DropdownModule,
-    PaginatorModule,
-    InputTextModule,
-    InputTextareaModule,
-    PasswordModule,
-    CardModule,
-    InputSwitchModule,
-    DividerModule,
-    TagModule,
-    ToolbarModule,
-    RouterOutlet,
-    BrowserModule,
-    HttpClientModule,
-    LeafletModule,
-    CardModule,
-    FloatLabelModule,
-    InputTextModule,
-    PasswordModule,
-    TagModule,
-    AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    TooltipModule,
+    imports: [
+        PanelModule,
+        // FlexModule,
+        Button,
+        FloatLabelModule,
+        FormsModule,
+        DropdownModule,
+        PaginatorModule,
+        InputTextModule,
+        InputTextareaModule,
+        PasswordModule,
+        CardModule,
+        InputSwitchModule,
+        DividerModule,
+        TagModule,
+        ToolbarModule,
+        RouterOutlet,
+        BrowserModule,
+        HttpClientModule,
+        LeafletModule,
+        CardModule,
+        FloatLabelModule,
+        InputTextModule,
+        PasswordModule,
+        TagModule,
+        AppRoutingModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        TooltipModule,
+        ToastModule,
+        TableModule,
 
-  ],
+    ],
   providers: [ ApiService,
     // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
