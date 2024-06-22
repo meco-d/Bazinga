@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {AuthInterceptor} from "./services/authentication/auth-interceptor.service";
+import { HttpClientModule } from "@angular/common/http";
 import { MapComponent } from './components/map/map.component';
 import { StationPopupComponent } from './components/map/station-popup/station-popup.component';
 import {CardModule} from "primeng/card";
@@ -33,6 +32,10 @@ import {TooltipModule} from "primeng/tooltip";
 import { ProfileComponent } from './components/profile/profile.component';
 import {ToastModule} from "primeng/toast";
 import {TableModule} from "primeng/table";
+import {KnobModule} from "primeng/knob";
+import { ProfileClientComponent } from './components/profile-client/profile-client.component';
+import {OverlayPanelModule} from "primeng/overlaypanel";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import {TableModule} from "primeng/table";
     NavbarComponent,
     StationPopupComponent,
     SignupComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProfileClientComponent
   ],
     imports: [
         PanelModule,
@@ -74,6 +78,9 @@ import {TableModule} from "primeng/table";
         TooltipModule,
         ToastModule,
         TableModule,
+        KnobModule,
+        OverlayPanelModule,
+        BrowserAnimationsModule,
 
     ],
   providers: [ ApiService,
