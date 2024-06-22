@@ -1,46 +1,65 @@
 <div class="map-container">
-<!--    <div class="map-overlay">-->
-        <div class="map-overlay-inner">
+
+    <div style="display: flex; flex-direction: row; gap: 16px; width: 100%; padding: 34px;">
+        <div style="display: flex; flex-direction: column; width: 70%;">
             <h2>My Stations</h2>
-            <div class="card">
-                <p-toast />
-                <p-table [value]="stations" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+            <p-card>
+                <p-table (onRowCollapse)="onRowCollapse($event)" (onRowExpand)="onRowExpand($event)"
+                         [expandedRowKeys]="expandedRows"
+                         [tableStyle]="{ 'min-width': '60rem' }" [value]="stations"
+                         dataKey="id">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 5rem"></th>
-                            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
-                            <th pSortableColumn="city">city <p-sortIcon field="city" /></th>
-                            <th pSortableColumn="country">Country <p-sortIcon field="country" /></th>
-                            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
+                            <th pSortableColumn="name">Name
+                                <p-sortIcon field="name"/>
+                            </th>
+                            <th pSortableColumn="city">city
+                                <p-sortIcon field="city"/>
+                            </th>
+                            <th pSortableColumn="country">Country
+                                <p-sortIcon field="country"/>
+                            </th>
+                            <th pSortableColumn="inventoryStatus">Status
+                                <p-sortIcon field="inventoryStatus"/>
+                            </th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-product let-expanded="expanded">
+                    <ng-template let-expanded="expanded" let-product pTemplate="body">
                         <tr>
                             <td>
-                                <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                                <p-button [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+                                          [pRowToggler]="product" [plain]="true" [rounded]="true" [text]="true"
+                                          pRipple type="button"/>
                             </td>
                             <td>{{ product.name }}</td>
                             <td>{{ product.city }}</td>
                             <td>{{ product.country}}</td>
                             <td>
-                                <p-tag [value]="product.status"  />
+                                <p-tag [value]="product.status"/>
                             </td>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="rowexpansion" let-product>
+                    <ng-template let-product pTemplate="rowexpansion">
                         <tr>
                             <td colspan="7">
                                 <div class="p-3">
                                     <p-table [value]="product.chargers" dataKey="id">
                                         <ng-template pTemplate="header">
                                             <tr>
-                                                <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
-                                                <th pSortableColumn="type">Type <p-sortIcon field="type" /></th>
-                                                <th pSortableColumn="rated_power">Rated Power <p-sortIcon field="rated_power" /></th>
+                                                <th pSortableColumn="status">Status
+                                                    <p-sortIcon field="status"/>
+                                                </th>
+                                                <th pSortableColumn="type">Type
+                                                    <p-sortIcon field="type"/>
+                                                </th>
+                                                <th pSortableColumn="rated_power">Rated Power
+                                                    <p-sortIcon field="rated_power"/>
+                                                </th>
 
                                             </tr>
                                         </ng-template>
-                                        <ng-template pTemplate="body" let-chargers>
+                                        <ng-template let-chargers pTemplate="body">
                                             <tr>
                                                 <td>{{ chargers.status }}</td>
                                                 <td>{{ chargers.type }}</td>
@@ -58,56 +77,69 @@
                         </tr>
                     </ng-template>
                 </p-table>
-            </div>
-            <br>
-            <br>
-            <br>
-            <div style="display: flex; flex-direction: row; gap: 16px; justify-content: space-evenly; width: 100%; align-items: center;">
-
-            </div>
-            <br>
-            <br>
-            <br>
-            <div style="display: flex; flex-direction: row; gap: 16px; justify-content: center; width: 100%;  height: 100%; align-items: center;">
-                <div>
-                    <p-card>
-                        <span style="color: #343F5A; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight:bold;">New Station</span>
-                        <div style="display: flex; flex-direction: column; gap: 16px; justify-content: center; width: 100%; align-items: center;">
-                            <input style="width: 260px" type="text" pInputText placeholder="Name" [(ngModel)]="name"/>
-                            <input style="width: 260px" type="text" pInputText placeholder="Longtitude , Latitude" [(ngModel)]="lnglat"/>
+            </p-card>
+        </div>
+        <div style="display: flex; flex-direction: column; width: 30%;">
+            <h2>Overview</h2>
+            <p-card>
+                <!--                <div style="display: flex; flex-direction: column; gap: 16px; justify-content: center; width: 100%; align-items: center;">-->
+                <!--                    <input [(ngModel)]="name" pInputText placeholder="Name" style="width: 260px" type="text"/>-->
+                <!--                    <input [(ngModel)]="lnglat" pInputText placeholder="Longtitude , Latitude" style="width: 260px"-->
+                <!--                           type="text"/>-->
+                <!--                </div>-->
+                <!--                <br>-->
+                <!--                <p-button-->
+                <!--                        label="Add new Station"-->
+                <!--                        styleClass="p-button-rounded p-button-primary"-->
+                <!--                ></p-button>-->
+                <div style="display: flex; flex-direction: row; justify-content: center;">
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <p-knob [(ngModel)]="value" [max]="10" [min]="0" [readonly]="true"
+                                [size]="150" valueTemplate="{{value/10*100}}%"></p-knob>
+                        <div style="display: flex; justify-content: center; align-content: center; height: 100%; width: 60%;">
+                            <h3>Chargers in use: {{value}}</h3>
                         </div>
-                        <br>
-                        <p-button
-                                label="Add new Station"
-                                styleClass="p-button-rounded p-button-primary"
-                        ></p-button>
-                    </p-card>
-                </div>
-                <div>
-                    <div>
-                        <p-card>
-                            <span style="color: #343F5A; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight:bold;">New Charger</span>
-                            <div style="display: flex; flex-direction: column; gap: 16px; justify-content: center; width: 100%; height: 100%; align-items: center;">
-                                <p-dropdown
-                                        [options]="listStations"
-                                        [(ngModel)]="selectedCity"
-                                        optionLabel="name"
-                                        placeholder="Select a Station" />
-                                <p-dropdown
-                                        [options]="listStations"
-                                        [(ngModel)]="selectedCity"
-                                        optionLabel="name"
-                                        placeholder="Select a Charger Type" />
-                                <input style="width: 260px" type="text" pInputText placeholder="Rating" [(ngModel)]="lnglat"/>
-                                <p-button
-                                        label="Add new Charger per station"
-                                        styleClass="p-button-rounded p-button-danger"
-                                ></p-button>
-                            </div>
-                        </p-card>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <p-knob [(ngModel)]="value" [max]="10" [min]="0" [readonly]="true"
+                                [size]="150" valueTemplate="{{value/10*100}}%"></p-knob>
+                        <div style="display: flex; justify-content: center; align-content: center; height: 100%; width: 60%;">
+                            <h3>Chargers reserved: {{value}}</h3>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <p-knob [(ngModel)]="value" [max]="10" [min]="0" [readonly]="true"
+                                [size]="150" valueTemplate="{{value/10*100}}%"></p-knob>
+                        <div style="display: flex; justify-content: center; align-content: center; height: 100%; width: 60%;">
+                            <h3>Maintenance req: {{value}}</h3>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </p-card>
+            <h2>New Charger</h2>
+            <p-card>
+                <div style="display: flex; flex-direction: row; gap: 16px; justify-content: center; width: 100%; height: 100%; align-items: center;">
+                    <!--                    <p-dropdown-->
+                    <!--                            [(ngModel)]="selectedCity"-->
+                    <!--                            [options]="listStations"-->
+                    <!--                            optionLabel="name"-->
+                    <!--                            placeholder="Select a Station"/>-->
+                    <!--                    <p-dropdown-->
+                    <!--                            [(ngModel)]="selectedCity"-->
+                    <!--                            [options]="listStations"-->
+                    <!--                            optionLabel="name"-->
+                    <!--                            placeholder="Select a Charger Type"/>-->
+                    <!--                    <input [(ngModel)]="lnglat" pInputText placeholder="Rating" style="width: 260px" type="text"/>-->
+                    <p-button
+                            label="Add new Station"
+                            styleClass="p-button-rounded p-button-primary"
+                    ></p-button>
+                    <p-button
+                            label="Add new Charger"
+                            styleClass="p-button-rounded p-button-danger"
+                    ></p-button>
+                </div>
+            </p-card>
         </div>
-<!--    </div>-->
+    </div>
 </div>

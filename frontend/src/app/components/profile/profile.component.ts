@@ -55,6 +55,7 @@ export class ProfileComponent implements OnInit{
   name: any;
   lnglat: any;
   selectedCity: any;
+  value: number = 6;
 
   constructor() {}
 
