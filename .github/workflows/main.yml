@@ -28,8 +28,6 @@ jobs:
           node-version: '20'  # Use the Node.js version required by your project
       - name: find path
         run: pwd
-      - name: test
-        run: ls -la
       - name: Install dependencies
         run: npm install
         working-directory: frontend/
@@ -37,19 +35,27 @@ jobs:
       - name: Build Angular project
         run: npm run build --prod
         working-directory: frontend
-      
+     
+      - name: clean known hosts 
+        run: echo "" > ~/.ssh/known_hosts
       - name: clean the file
-        run: ssh -o StrictHostKeyChecking=no -p 4422 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} rm -rf /home/ubuntu/tmp/*
-
+        run: ssh -o StrictHostKeyChecking=no -p 5544 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} 'sudo find /home/ubuntu/deply/ -maxdepth 1 -mindepth 1 ! -name 'db-data' -exec rm -rf {} +'
+      - name: build env
+        run: |
+          echo "POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}" >> .env
+          echo "PGADMIN_DEFAULT_EMAI=${{secrets.PGADMIN_DEFAULT_EMAIL}}" >> .env
+          echo "PGADMIN_DEFAULT_PASSWORD=${{secrets.PGADMIN_DEFAULT_PASSWORD}}" >> .env
+      - name: ls -R 
+        run: ls -R 
       - name: copy file via ssh key
         uses: appleboy/scp-action@v0.1.7
         with:
             host: ${{ secrets.REMOTE_HOST }}
             username: ${{ secrets.REMOTE_USER }}
-            port: 4422
+            port: 5544
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             source: "./"
-            target: /home/ubuntu/tmp/
+            target: /home/ubuntu/deply/
       - name: docker compose up
         run: >
-          ssh -o StrictHostKeyChecking=no -p 4422 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} sudo docker compose -f /home/ubuntu/tmp/docker_compose.yaml up -d --remove-orphans 
+          ssh -o StrictHostKeyChecking=no -p 5544 -i ~/.ssh/key-git ${{secrets.REMOTE_USER}}@${{secrets.REMOTE_HOST}} sudo docker compose -f /home/ubuntu/deply/docker_compose.yaml up -d --remove-orphans 

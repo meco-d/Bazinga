@@ -33,7 +33,7 @@ async def login_for_access_token(
             expires_delta=access_token_expires,
         )
         return JSONResponse(
-            Token(access_token=access_token, token_type="bearer").model_dump(), 200
+            Token(access_token=access_token, token_type="bearer", role=user["role"]).model_dump(), 200
         )
     except Exception as ex:
         raise HTTPException(status_code=500, detail=ex)

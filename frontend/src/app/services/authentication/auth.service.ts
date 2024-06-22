@@ -8,8 +8,8 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 export class AuthService {
-  gatewayUrl = 'http://localhost:4000/'; // locally
-  // gatewayUrl = 'database-service:80/'; //deployed
+  //gatewayUrl = 'http://localhost:4000/'; // locally
+  gatewayUrl = 'database-service:80/'; //deployed
   private accessTokenKey = 'access_token';
   private refreshTokenKey = 'refresh_token';
   private role = 'role';

@@ -19,6 +19,7 @@ class Oauth2Scheme:
 class Token(BaseModel):
     access_token: str
     token_type: str
+    role: str | None = None
 
 
 class TokenData(BaseModel):
@@ -80,12 +81,12 @@ class AuthService:
         connection = DatabaseConnection().get_connection()
         statement = text(
             """
-        select u.id, u.username, r.name as role, group_concat(distinct p.name) as permission
+        select u.id, u.username, r.name as role, string_agg(DISTINCT p.name, ', ') AS permission
         from users as u
-            left join user_roles ur on u.id = ur.user_id
-            left join roles r on ur.role_id = r.id
-            left join role_permissions rl on r.id = rl.role_id
-            left join permissions p on rl.permission_id = p.id
+                left join user_roles ur on u.id = ur.user_id
+                left join roles r on ur.role_id = r.id
+                left join role_permissions rl on r.id = rl.role_id
+                left join permissions p on rl.permission_id = p.id
         GROUP BY u.id, u.username, r.name
         """
         )
@@ -106,7 +107,13 @@ class AuthService:
 
     def get_user_from_db(self, username: str):
         connection = DatabaseConnection().get_connection()
-        statement = text("select * from users where username=:uname")
+        statement = text("""
+        select users.*,r.name as role
+        from users
+        left join user_roles ur on users.id = ur.user_id
+        left join roles r on ur.role_id = r.id
+        where username=:uname
+                         """)
         statement = statement.bindparams(uname=username)
         result = connection.execute(statement).fetchone()._asdict()
 
